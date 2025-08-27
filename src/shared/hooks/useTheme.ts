@@ -8,20 +8,22 @@ export const useTheme = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
-    // Get initial theme from localStorage or system preference
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
-    const systemPreference = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    const initialTheme = savedTheme || systemPreference;
-    
-    setTheme(initialTheme);
-    document.documentElement.className = initialTheme === 'dark' ? 'dark' : '';
+    // Get current theme from DOM (already set by inline script)
+    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    setTheme(currentTheme);
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    document.documentElement.className = newTheme === 'dark' ? 'dark' : '';
+    
+    // Use classList to avoid overwriting other classes
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   };
 
   return {

@@ -8,7 +8,7 @@ const DynamicBackground: React.FC = () => {
   }
 
   return (
-    <div className={`fixed inset-0 -z-10 transition-colors duration-1000 ease-in-out ${currentBgClass}`} />
+    <div className={`fixed inset-0 -z-20 transition-colors duration-1000 ease-in-out ${currentBgClass}`} />
   );
 };
 

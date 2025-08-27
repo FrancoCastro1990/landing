@@ -1,27 +1,8 @@
-import { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { useTheme } from '../hooks/useTheme';
 
 const ThemeToggle: React.FC = () => {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-
-  useEffect(() => {
-    // Load theme from localStorage on mount
-    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light';
-    const systemPreference = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    const initialTheme = savedTheme || systemPreference;
-    
-    setTheme(initialTheme);
-    // Apply 'dark' class for dark theme, empty for light theme (Tailwind's dark mode)
-    document.documentElement.className = initialTheme === 'dark' ? 'dark' : '';
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    // Apply 'dark' class for dark theme, empty for light theme (Tailwind's dark mode)
-    document.documentElement.className = newTheme === 'dark' ? 'dark' : '';
-  };
+  const { theme, toggleTheme } = useTheme();
 
   const toggleSpring = useSpring({
     transform: theme === 'dark' ? 'rotate(0deg)' : 'rotate(180deg)',
