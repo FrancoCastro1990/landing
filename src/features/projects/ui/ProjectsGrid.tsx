@@ -36,7 +36,7 @@ const ProjectsGrid: React.FC = () => {
       description: 'My personal website built with Astro and React, featuring custom Canvas animations, responsive design, and performance optimizations. Implements Clean Architecture principles and development best practices.',
       technologies: ['Astro', 'React', 'TypeScript', 'Tailwind CSS', 'React Spring'],
       githubUrl: 'https://github.com/FrancoCastro1990/landing.git',
-      liveUrl: 'https://francocastro.dev',
+      liveUrl: 'https://fcastro.dev',
     }
   ];
 
