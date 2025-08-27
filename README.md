@@ -270,7 +270,7 @@ MIT License - Feel free to use this template for your own projects!
 Franco Castro Villanueva
 - **Website**: [fcastro.dev](https://fcastro.dev)
 - **Email**: [franco.castro.villanueva.90@gmail.com](mailto:franco.castro.villanueva.90@gmail.com)
-- **LinkedIn**: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- **LinkedIn**: [Franco Castro Villanueva](https://www.linkedin.com/in/franco-castro-villanueva-035905174/)
 - **GitHub**: [FrancoCastro1990](https://github.com/FrancoCastro1990)
 
 ---
@@ -278,5 +278,5 @@ Franco Castro Villanueva
 <div align="center">
   <strong>Built with ❤️ and terminal aesthetics</strong>
   <br>
-  <sub>© 2024 Franco Castro Villanueva</sub>
+  <sub>© 2025 Franco Castro</sub>
 </div>

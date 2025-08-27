@@ -1,16 +1,14 @@
 ---
-import '../styles/global.css';
-import AnimatedBackground from '../components/AnimatedBackground.tsx';
-import DynamicBackground from '../components/DynamicBackground.tsx';
-import ScrollIndicator from '../components/ScrollIndicator.tsx';
-import ThemeToggle from '../components/ThemeToggle.tsx';
-import Header from '../components/Header.tsx';
-import Hero from '../components/Hero.tsx';
-import About from '../components/About.tsx';
-import Experience from '../components/Experience.tsx';
-import ProjectsGrid from '../components/ProjectsGrid.tsx';
-import Contact from '../components/Contact.tsx';
-import Footer from '../components/Footer.tsx';
+import '@shared/styles/global.css';
+import AnimatedBackground from '@shared/ui/AnimatedBackground.tsx';
+import ThemeToggle from '@shared/ui/ThemeToggle.tsx';
+import { DynamicBackground, ScrollIndicator, Hero } from '@features/hero';
+import { Header } from '@features/navigation';
+import { About } from '@features/about';
+import { Experience } from '@features/experience';
+import { ProjectsGrid } from '@features/projects';
+import { Contact } from '@features/contact';
+import { Footer } from '@features/layout';
 ---
 
 <!doctype html>
@@ -64,7 +62,7 @@ import Footer from '../components/Footer.tsx';
     <DynamicBackground client:load />
     
     <!-- Scroll Indicator -->
-    <ScrollIndicator client:load />
+    <ScrollIndicator client:visible />
     
     <!-- Theme Toggle -->
     <ThemeToggle client:load />
@@ -75,23 +73,23 @@ import Footer from '../components/Footer.tsx';
     <!-- Main Content -->
     <main>
       <!-- Hero Section -->
-      <Hero client:load />
+      <Hero client:visible />
       
       <!-- About Section -->
-      <About client:load />
+      <About client:visible />
       
       <!-- Experience Section -->
-      <Experience client:load />
+      <Experience client:visible />
       
       <!-- Projects Section -->
-      <ProjectsGrid client:load />
+      <ProjectsGrid client:visible />
       
       <!-- Contact Section -->
-      <Contact client:load />
+      <Contact client:visible />
     </main>
     
     <!-- Footer -->
-    <Footer client:load />
+    <Footer />
 
     <script>
       // Add animation toggle functionality for demo purposes

@@ -1,6 +1,6 @@
-import SubTitle from './SubTitle';
-import Badge from './Badge';
-import Button from './Button';
+import SubTitle from '@shared/ui/SubTitle';
+import Badge from '@shared/ui/Badge';
+import Button from '@shared/ui/Button';
 
 interface ProjectCardProps {
   title: string;

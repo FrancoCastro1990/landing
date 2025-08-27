@@ -13,7 +13,11 @@ const sections: SectionConfig[] = [
   { id: 'contact', bgClass: 'bg-lightTheme-yellow/10 dark:bg-darkTheme-yellow/10' },
 ];
 
-const DynamicBackground: React.FC = () => {
+/**
+ * Hook that dynamically changes background tint based on current section
+ * @returns Object with current section and background class
+ */
+export const useSectionTint = () => {
   const [mounted, setMounted] = useState(false);
   const [currentSection, setCurrentSection] = useState('hero');
 
@@ -61,15 +65,11 @@ const DynamicBackground: React.FC = () => {
     };
   }, [currentSection, mounted]);
 
-  if (!mounted) {
-    return null;
-  }
-
   const currentBgClass = sections.find(s => s.id === currentSection)?.bgClass || sections[0].bgClass;
 
-  return (
-    <div className={`fixed inset-0 -z-10 transition-colors duration-1000 ease-in-out ${currentBgClass}`} />
-  );
+  return {
+    mounted,
+    currentSection,
+    currentBgClass,
+  };
 };
-
-export default DynamicBackground;

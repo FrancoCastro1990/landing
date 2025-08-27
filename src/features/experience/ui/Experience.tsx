@@ -1,7 +1,7 @@
-import Reveal from './Reveal';
-import SectionTitle from './SectionTitle';
-import Card from './Card';
-import Badge from './Badge';
+import Reveal from '@shared/ui/Reveal';
+import SectionTitle from '@shared/ui/SectionTitle';
+import Card from '@shared/ui/Card';
+import Badge from '@shared/ui/Badge';
 
 interface Experience {
   id: number;

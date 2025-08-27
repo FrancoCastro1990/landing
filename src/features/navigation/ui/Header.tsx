@@ -1,20 +1,14 @@
-import { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
-import Logo from './Logo';
-import Link from './Link';
+import { useHeaderVisibility } from '../hooks/useHeaderVisibility';
+import { useMobileMenu } from '../hooks/useMobileMenu';
+import { useNavigation } from '../hooks/useNavigation';
+import Logo from '@shared/ui/Logo';
+import Link from '@shared/ui/Link';
 
 const Header: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const isScrolled = useHeaderVisibility(50);
+  const { isOpen: isMobileMenuOpen, toggleMenu, closeMenu } = useMobileMenu();
+  const { scrollToSection, scrollToTop } = useNavigation();
 
   const headerSpring = useSpring({
     backdropFilter: isScrolled ? 'blur(10px)' : 'blur(0px)',
@@ -29,25 +23,22 @@ const Header: React.FC = () => {
     config: { tension: 300, friction: 30 },
   });
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
+  const handleScrollToSection = (sectionId: string) => {
+    scrollToSection(sectionId);
+    closeMenu();
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsMobileMenuOpen(false);
+  const handleScrollToTop = () => {
+    scrollToTop();
+    closeMenu();
   };
 
   const navigationItems = [
-    { label: 'Home', action: scrollToTop },
-    { label: 'About', action: () => scrollToSection('about') },
-    { label: 'Experience', action: () => scrollToSection('experience') },
-    { label: 'Projects', action: () => scrollToSection('projects') },
-    { label: 'Contact', action: () => scrollToSection('contact') },
+    { label: 'Home', action: handleScrollToTop },
+    { label: 'About', action: () => handleScrollToSection('about') },
+    { label: 'Experience', action: () => handleScrollToSection('experience') },
+    { label: 'Projects', action: () => handleScrollToSection('projects') },
+    { label: 'Contact', action: () => handleScrollToSection('contact') },
   ];
 
   return (
@@ -62,7 +53,7 @@ const Header: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Logo clickable onLogoClick={scrollToTop} />
+          <Logo clickable onLogoClick={handleScrollToTop} />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
@@ -86,7 +77,7 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={toggleMenu}
             className="md:hidden text-lightTheme-green dark:text-darkTheme-green hover:text-lightTheme-blue dark:hover:text-darkTheme-blue transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg rounded p-2 font-mono"
             aria-label="Toggle mobile menu"
             aria-expanded={isMobileMenuOpen}
@@ -114,7 +105,7 @@ const Header: React.FC = () => {
           <div className="flex items-center justify-between p-4 bg-lightTheme-bg dark:bg-darkTheme-bg">
             <Logo />
             <button
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={closeMenu}
               className="text-lightTheme-green dark:text-darkTheme-green hover:text-lightTheme-blue dark:hover:text-darkTheme-blue transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg p-1 font-mono"
               aria-label="Close mobile menu"
             >
@@ -138,14 +129,6 @@ const Header: React.FC = () => {
                 ))}
               </nav>
             </div>
-
-            <div className="p-4 border-t border-lightTheme-green/30 dark:border-darkTheme-green/30 bg-lightTheme-bg/90 dark:bg-darkTheme-bg/90">
-              <div className="text-xs text-lightTheme-text/70 dark:text-darkTheme-text/70 font-mono">
-                <span className="text-lightTheme-green dark:text-darkTheme-green">user@fcastro.dev:</span>
-                <span className="text-lightTheme-blue dark:text-darkTheme-blue">~$</span> 
-                <span className="ml-1">© 2024</span>
-              </div>
-            </div>
           </div>
         </div>
       </animated.div>
@@ -154,7 +137,7 @@ const Header: React.FC = () => {
       {isMobileMenuOpen && (
         <div
           className="md:hidden fixed inset-0 bg-lightTheme-bg/90 dark:bg-darkTheme-bg/90 backdrop-blur-lg z-40"
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={closeMenu}
           aria-hidden="true"
         />
       )}

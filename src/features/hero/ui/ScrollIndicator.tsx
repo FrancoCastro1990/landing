@@ -1,25 +1,8 @@
-import { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { useScrollProgress } from '@shared/hooks/useScrollProgress';
 
 const ScrollIndicator: React.FC = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [showIndicator, setShowIndicator] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const currentProgress = window.scrollY / totalHeight;
-      setScrollProgress(currentProgress);
-      
-      // Hide indicator when user has scrolled significantly
-      setShowIndicator(currentProgress < 0.95);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial call
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollProgress, showIndicator } = useScrollProgress();
 
   const indicatorSpring = useSpring({
     opacity: showIndicator ? 0.7 : 0,

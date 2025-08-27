@@ -1,102 +1,23 @@
-import { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { useTypingAnimation } from '../hooks/useTypingAnimation';
+import { useScrollHint } from '../hooks/useScrollHint';
 
 const Hero: React.FC = () => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showCursor, setShowCursor] = useState(true);
-  const [typingComplete, setTypingComplete] = useState(false);
-  const [showScrollHint, setShowScrollHint] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const [showLogo, setShowLogo] = useState(false);
-  const [displayedAfterText, setDisplayedAfterText] = useState('');
-  const [afterTextIndex, setAfterTextIndex] = useState(0);
-  const [firstPartComplete, setFirstPartComplete] = useState(false);
-
   const fullText = "Hello, I'm ";
   const afterLogoText = " // FullStack Developer | React & TypeScript Specialist";
-  const typingSpeed = 100;
-  const cursorBlinkSpeed = 500;
 
-  // Check for reduced motion
-  const prefersReducedMotion = 
-    typeof window !== 'undefined' && 
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const {
+    displayedText,
+    displayedAfterText,
+    showCursor,
+    showLogo,
+    typingComplete,
+  } = useTypingAnimation({
+    fullText,
+    afterText: afterLogoText,
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setHasScrolled(true);
-        setShowScrollHint(false);
-      } else if (window.scrollY <= 10) {
-        // Reset when user returns to top
-        setHasScrolled(false);
-        setShowScrollHint(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!hasScrolled && typingComplete) {
-      const timer = setTimeout(() => {
-        setShowScrollHint(true);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [hasScrolled, typingComplete]);
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setDisplayedText(fullText);
-      setFirstPartComplete(true);
-      setShowLogo(true);
-      setDisplayedAfterText(afterLogoText);
-      setTypingComplete(true);
-      return;
-    }
-
-    // First part typing
-    if (currentIndex < fullText.length && !firstPartComplete) {
-      const timeout = setTimeout(() => {
-        setDisplayedText(prev => prev + fullText[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, typingSpeed);
-
-      return () => clearTimeout(timeout);
-    } 
-    // Show logo after first part
-    else if (!firstPartComplete && currentIndex >= fullText.length) {
-      setFirstPartComplete(true);
-      setTimeout(() => setShowLogo(true), 300);
-    }
-    // Second part typing
-    else if (firstPartComplete && showLogo && afterTextIndex < afterLogoText.length) {
-      const timeout = setTimeout(() => {
-        setDisplayedAfterText(prev => prev + afterLogoText[afterTextIndex]);
-        setAfterTextIndex(prev => prev + 1);
-      }, typingSpeed);
-
-      return () => clearTimeout(timeout);
-    }
-    // Complete
-    else if (afterTextIndex >= afterLogoText.length && !typingComplete) {
-      setTypingComplete(true);
-    }
-  }, [currentIndex, afterTextIndex, fullText, afterLogoText, typingComplete, prefersReducedMotion, firstPartComplete, showLogo]);
-
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, cursorBlinkSpeed);
-
-    return () => clearInterval(cursorInterval);
-  }, [prefersReducedMotion]);
+  const { showScrollHint } = useScrollHint(typingComplete);
 
   const titleSpring = useSpring({
     opacity: 1,

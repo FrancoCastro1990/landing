@@ -1,8 +1,8 @@
 import { useTrail, animated } from '@react-spring/web';
 import ProjectCard from './ProjectCard';
-import Reveal from './Reveal';
-import SectionTitle from './SectionTitle';
-import Button from './Button';
+import Reveal from '@shared/ui/Reveal';
+import SectionTitle from '@shared/ui/SectionTitle';
+import Button from '@shared/ui/Button';
 
 interface Project {
   id: number;

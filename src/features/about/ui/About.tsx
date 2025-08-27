@@ -1,9 +1,9 @@
 import { useSpring, animated } from '@react-spring/web';
-import Reveal from './Reveal';
-import SectionTitle from './SectionTitle';
-import SubTitle from './SubTitle';
-import Card from './Card';
-import Badge from './Badge';
+import Reveal from '@shared/ui/Reveal';
+import SectionTitle from '@shared/ui/SectionTitle';
+import SubTitle from '@shared/ui/SubTitle';
+import Card from '@shared/ui/Card';
+import Badge from '@shared/ui/Badge';
 
 const About: React.FC = () => {
   const skills = [

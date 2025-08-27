@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
+import path from 'path';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,5 +17,12 @@ export default defineConfig({
     ssr: {
       noExternal: ['@react-spring/web'],
     },
+    resolve: {
+      alias: {
+        '@app': path.resolve('./src/app'),
+        '@features': path.resolve('./src/features'),
+        '@shared': path.resolve('./src/shared'),
+      }
+    }
   },
 });
