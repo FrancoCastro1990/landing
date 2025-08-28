@@ -11,4 +11,5 @@ export { default as ThemeToggle } from './ThemeToggle';
 export { default as AnimatedBackground } from './AnimatedBackground';
 export { default as KeyboardShortcuts } from './KeyboardShortcuts';
 export { default as KeyboardShortcutsHelp } from './KeyboardShortcutsHelp';
+export { default as ActionButton } from './ActionButton';
 export { default as AppProviders } from './AppProviders';

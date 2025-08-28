@@ -36,6 +36,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
     { combo: 'Ctrl + Alt + C', description: 'Navigate to Contact section', icon: '📞' },
     { combo: 'Ctrl + Alt + I', description: 'Toggle theme (light/dark)', icon: '🌙' },
     { combo: 'Ctrl + Alt + T', description: 'Toggle theme button visibility', icon: '👁️' },
+    { combo: 'Ctrl + Alt + `', description: 'Toggle experience view mode', icon: '🔄' },
     { combo: 'Ctrl + Alt + M', description: 'Toggle this help modal', icon: '❓' },
   ];
 

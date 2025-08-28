@@ -1,7 +1,10 @@
+import { useSpring, animated } from '@react-spring/web';
 import Reveal from '@shared/ui/Reveal';
 import SectionTitleWithShortcut from '@shared/ui/SectionTitleWithShortcut';
-import Card from '@shared/ui/Card';
-import Badge from '@shared/ui/Badge';
+import ActionButton from '@shared/ui/ActionButton';
+import ExperienceBasic from './ExperienceBasic';
+import ExperienceAdvanced from './ExperienceAdvanced';
+import { useExperienceViewMode } from '../hooks';
 
 interface Experience {
   id: number;
@@ -16,6 +19,7 @@ interface Experience {
 }
 
 const Experience: React.FC = () => {
+  const { viewMode, isBasic } = useExperienceViewMode();
 
   const experiences: Experience[] = [
     {
@@ -96,6 +100,15 @@ const Experience: React.FC = () => {
     }
   ];
 
+  // Animation for mode switching
+  const modeSpring = useSpring({
+    opacity: 1,
+    transform: 'translateY(0px)',
+    from: { opacity: 0, transform: 'translateY(20px)' },
+    config: { tension: 280, friction: 60 },
+    key: viewMode, // Re-trigger animation when mode changes
+  });
+
   return (
     <section id="experience" className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
@@ -103,119 +116,49 @@ const Experience: React.FC = () => {
           <div className="text-center mb-16">
             <SectionTitleWithShortcut shortcut="E">Professional Experience</SectionTitleWithShortcut>
             <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto mb-4"></div>
-            <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto">
-              6+ years of professional development experience across various industries
-            </p>
+            <div className="space-y-2">
+              <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto">
+                6+ years of professional development experience across various industries
+              </p>
+              
+              {/* Mode indicator */}
+              <div className="flex items-center justify-center space-x-2 text-lightTheme-text/40 dark:text-darkTheme-text/40 font-mono text-xs">
+                <span>View mode:</span>
+                <span className="text-lightTheme-green dark:text-darkTheme-green">
+                  {isBasic ? 'Basic' : 'Advanced'}
+                </span>
+                <span>•</span>
+                <span>Press</span>
+                <kbd className="px-1 py-0.5 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs">
+                  Ctrl+Alt+`
+                </kbd>
+                <span>to toggle</span>
+              </div>
+            </div>
           </div>
         </Reveal>
 
-        <Reveal delay={200}>
-          <Card variant="terminal" showHeader={true}>
-            {/* Terminal Content */}
-            <div className="space-y-1">
-              {/* Git Log Header */}
-              <div className="mb-4">
-                <span className="text-lightTheme-green dark:text-darkTheme-green">$</span>
-                <span className="text-lightTheme-text dark:text-darkTheme-text ml-2">git log --oneline --graph</span>
-              </div>
-
-              {/* Experience Git Log */}
-              {experiences.map((exp, index) => (
-                <div key={exp.id} className="space-y-3">
-                  {/* Git Commit Entry */}
-                  <div className="border-l-2 border-lightTheme-green/30 dark:border-darkTheme-green/30 pl-4 space-y-3">
-                    {/* Commit Hash and Author */}
-                    <div className="text-lightTheme-yellow dark:text-darkTheme-yellow font-mono text-sm">
-                      <span>commit </span>
-                      <span className="text-lightTheme-green dark:text-darkTheme-green">
-                        {exp.id.toString().padStart(7, '0')}abc
-                      </span>
-                      <span className="text-lightTheme-text/60 dark:text-darkTheme-text/60"> (HEAD -&gt; career)</span>
-                    </div>
-                    
-                    <div className="text-sm space-y-1">
-                      <div>
-                        <span className="text-lightTheme-blue dark:text-darkTheme-blue">Author: </span>
-                        <span className="text-lightTheme-text dark:text-darkTheme-text">Franco Castro &lt;franco@{exp.company.toLowerCase().replace(/\s+/g, '')}&gt;</span>
-                      </div>
-                      <div>
-                        <span className="text-lightTheme-blue dark:text-darkTheme-blue">Date: </span>
-                        <span className="text-lightTheme-text dark:text-darkTheme-text">{exp.timestamp}</span>
-                      </div>
-                    </div>
-
-                    {/* Commit Message */}
-                    <div className="border-t border-lightTheme-text/10 dark:border-darkTheme-text/10 pt-3">
-                      <div className="text-lightTheme-text dark:text-darkTheme-text font-mono text-sm mb-3">
-                        {exp.commitMessage}
-                      </div>
-                      
-                      {/* Job Details */}
-                      <div className="bg-lightTheme-text/5 dark:bg-darkTheme-text/5 p-3 rounded border border-lightTheme-text/10 dark:border-darkTheme-text/10 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lightTheme-green dark:text-darkTheme-green font-bold">
-                            {exp.position}
-                          </span>
-                          <span className="text-lightTheme-text/60 dark:text-darkTheme-text/60">@</span>
-                          <span className="text-lightTheme-blue dark:text-darkTheme-blue font-semibold">
-                            {exp.company}
-                          </span>
-                        </div>
-                        
-                        <div className="text-lightTheme-yellow dark:text-darkTheme-yellow text-sm">
-                          {exp.period} • {exp.location}
-                        </div>
-                      </div>
-
-                      {/* Highlights */}
-                      <div className="mt-3">
-                        <div className="text-lightTheme-green dark:text-darkTheme-green text-sm font-mono mb-2">
-                          Changes made:
-                        </div>
-                        <ul className="space-y-1 text-sm">
-                          {exp.highlights.map((highlight, idx) => (
-                            <li key={idx} className="text-lightTheme-text dark:text-darkTheme-text flex items-start">
-                              <span className="text-lightTheme-green dark:text-darkTheme-green mr-2 mt-1">+</span>
-                              <span>{highlight}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Skills */}
-                      <div className="mt-3">
-                        <div className="text-lightTheme-green dark:text-darkTheme-green text-sm font-mono mb-2">
-                          Technologies used:
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {exp.skills.map((skill, idx) => (
-                            <Badge key={idx} size="sm" variant="outline">
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </Reveal>
+        <animated.div style={modeSpring}>
+          {isBasic ? (
+            <ExperienceBasic experiences={experiences} />
+          ) : (
+            <ExperienceAdvanced experiences={experiences} />
+          )}
+        </animated.div>
 
         <Reveal delay={1000}>
           <div className="text-center mt-12">
-            <a
+            <ActionButton
               href="https://www.linkedin.com/in/franco-castro-villanueva-035905174/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-lightTheme-green text-lightTheme-green dark:border-darkTheme-green dark:text-darkTheme-green bg-transparent font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:bg-lightTheme-green hover:text-lightTheme-bg dark:hover:bg-darkTheme-green dark:hover:text-darkTheme-bg hover:scale-105 font-mono"
+              ariaLabel="View LinkedIn profile"
+              icon={
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              }
             >
-              <span>$ open linkedin_profile</span>
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
+              $ open linkedin_profile
+            </ActionButton>
           </div>
         </Reveal>
       </div>
