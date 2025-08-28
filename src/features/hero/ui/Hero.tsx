@@ -88,9 +88,13 @@ const Hero: React.FC = () => {
           {/* Help indicator */}
           <div className="mt-8 flex items-center space-x-2 text-lightTheme-text/40 dark:text-darkTheme-text/40 font-mono text-xs">
             <span>Press</span>
-            <kbd className="px-2 py-1 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('toggleShortcutsHelp'))}
+              className="px-2 py-1 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs hover:bg-lightTheme-green/10 dark:hover:bg-darkTheme-green/10 hover:text-lightTheme-green dark:hover:text-darkTheme-green transition-colors duration-200 cursor-pointer"
+              aria-label="Open keyboard shortcuts help"
+            >
               Ctrl+Alt+M
-            </kbd>
+            </button>
             <span>for keyboard shortcuts</span>
           </div>
         </animated.div>

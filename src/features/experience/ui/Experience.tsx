@@ -129,9 +129,13 @@ const Experience: React.FC = () => {
                 </span>
                 <span>•</span>
                 <span>Press</span>
-                <kbd className="px-1 py-0.5 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs">
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('toggleExperienceViewMode'))}
+                  className="px-1 py-0.5 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs hover:bg-lightTheme-green/10 dark:hover:bg-darkTheme-green/10 hover:text-lightTheme-green dark:hover:text-darkTheme-green transition-colors duration-200 cursor-pointer"
+                  aria-label="Toggle experience view mode"
+                >
                   Ctrl+Alt+`
-                </kbd>
+                </button>
                 <span>to toggle</span>
               </div>
             </div>
