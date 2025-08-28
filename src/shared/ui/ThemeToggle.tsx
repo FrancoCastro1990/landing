@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { useTheme } from '../hooks/useTheme';
+import { useState, useEffect } from 'react';
 
 const ThemeToggle: React.FC = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');

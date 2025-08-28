@@ -52,7 +52,13 @@ import { Footer } from '@features/layout';
         const savedTheme = localStorage.getItem('theme');
         const systemPreference = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         const initialTheme = savedTheme || systemPreference;
-        document.documentElement.className = initialTheme === 'dark' ? 'dark' : '';
+        
+        // Use classList to avoid overwriting other classes
+        if (initialTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
       })();
     </script>
   </head>
