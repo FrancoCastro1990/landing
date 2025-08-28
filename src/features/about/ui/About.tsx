@@ -7,10 +7,10 @@ import Badge from '@shared/ui/Badge';
 
 const About: React.FC = () => {
   const skills = [
-    { category: 'Core', items: ['SOLID Principles', 'Clean Architecture', 'Design Patterns', 'Mentorship', 'Code Review'] },
-    { category: 'Frontend', items: ['React.js', 'TypeScript', 'Angular', 'HTML5', 'CSS', 'Responsive Design'] },
-    { category: 'Backend', items: ['Node.js', 'NestJS', 'PostgreSQL', 'REST APIs', 'Automated Testing'] },
-    { category: 'Tools', items: ['Git', 'Linux', 'Version Control', 'Agile Methodologies', 'Unit Testing'] },
+    { category: 'Core', items: ['Principios SOLID', 'Arquitectura Limpia', 'Patrones de Diseño', 'Mentorías', 'Revisión de Código'] },
+    { category: 'Frontend', items: ['React.js', 'TypeScript', 'Angular', 'HTML5', 'CSS', 'Diseño Responsivo'] },
+    { category: 'Backend', items: ['Node.js', 'NestJS', 'PostgreSQL', 'APIs REST', 'Pruebas Automatizadas'] },
+    { category: 'Herramientas', items: ['Git', 'Linux', 'Control de Versiones', 'Metodologías Ágiles', 'Pruebas Unitarias'] },
   ];
 
   return (
@@ -18,7 +18,7 @@ const About: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <Reveal threshold={0.1}>
           <div className="text-center mb-16">
-            <SectionTitleWithShortcut shortcut="A">About Me</SectionTitleWithShortcut>
+            <SectionTitleWithShortcut shortcut="A">Acerca de Mí</SectionTitleWithShortcut>
             <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto"></div>
           </div>
         </Reveal>
@@ -32,14 +32,14 @@ const About: React.FC = () => {
                   <span className="text-lightTheme-text dark:text-darkTheme-text ml-2 font-mono">whoami</span>
                 </div>
                 <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed mb-4 font-mono text-sm">
-                  I'm a passionate Full Stack Developer with 6+ years of experience, currently working at Isapre Esencial. 
-                  My expertise spans the complete development cycle, with a strong focus on React, TypeScript, and implementing 
-                  Clean Architecture principles in real-world applications.
+                  Soy un desarrollador FullStack apasionado con 6+ años de experiencia, trabajando actualmente en Isapre Esencial. 
+                  Mi experiencia abarca el ciclo completo de desarrollo, con un fuerte enfoque en React, TypeScript e implementación 
+                  de principios de Arquitectura Limpia en aplicaciones del mundo real.
                 </p>
                 <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed font-mono text-sm">
-                  I specialize in mentoring teams and sharing knowledge through internal talks on testing, custom hooks, 
-                  SOLID principles, and React best practices. My experience includes performance optimization (reducing 
-                  load times from 9s to 2s), legacy code refactoring, and building scalable enterprise solutions.
+                  Me especializo en mentorar equipos y compartir conocimiento a través de charlas internas sobre testing, hooks personalizados, 
+                  principios SOLID y mejores prácticas de React. Mi experiencia incluye optimización de rendimiento (reduciendo 
+                  tiempos de carga de 9s a 2s), refactorización de código legacy y construcción de soluciones empresariales escalables.
                 </p>
               </Card>
 
@@ -49,8 +49,8 @@ const About: React.FC = () => {
                   <span className="text-lightTheme-text dark:text-darkTheme-text ml-2 font-mono">cat philosophy.txt</span>
                 </div>
                 <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed font-mono text-sm">
-                  "Clean code and solid architecture are not just technical requirements—they're the foundation 
-                  for maintainable software that scales with business needs and enables team growth."
+                  "El código limpio y la arquitectura sólida no son solo requisitos técnicos—son la base 
+                  para software mantenible que escala con las necesidades del negocio y permite el crecimiento del equipo."
                 </p>
               </Card>
             </div>
@@ -93,11 +93,11 @@ const About: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <Card variant="terminal" className="text-center">
                   <div className="text-2xl font-bold text-lightTheme-green dark:text-darkTheme-green font-mono">6+</div>
-                  <div className="text-sm text-lightTheme-yellow dark:text-darkTheme-yellow font-mono">Years Experience</div>
+                  <div className="text-sm text-lightTheme-yellow dark:text-darkTheme-yellow font-mono">Años de Experiencia</div>
                 </Card>
                 <Card variant="terminal" className="text-center">
                   <div className="text-2xl font-bold text-lightTheme-green dark:text-darkTheme-green font-mono">5</div>
-                  <div className="text-sm text-lightTheme-yellow dark:text-darkTheme-yellow font-mono">Companies</div>
+                  <div className="text-sm text-lightTheme-yellow dark:text-darkTheme-yellow font-mono">Empresas</div>
                 </Card>
               </div>
             </div>

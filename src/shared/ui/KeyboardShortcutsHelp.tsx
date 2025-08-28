@@ -44,55 +44,55 @@ const KeyboardShortcutsHelp: React.FC = () => {
   const shortcuts = [
     { 
       combo: 'Ctrl + Alt + H', 
-      description: 'Navigate to Hero section', 
+      description: 'Navegar a la sección Hero', 
       icon: '🏠',
       action: () => scrollToSection('hero')
     },
     { 
       combo: 'Ctrl + Alt + A', 
-      description: 'Navigate to About section', 
+      description: 'Navegar a la sección Acerca de', 
       icon: '👨‍💻',
       action: () => scrollToSection('about')
     },
     { 
       combo: 'Ctrl + Alt + E', 
-      description: 'Navigate to Experience section', 
+      description: 'Navegar a la sección Experiencia', 
       icon: '💼',
       action: () => scrollToSection('experience')
     },
     { 
       combo: 'Ctrl + Alt + P', 
-      description: 'Navigate to Projects section', 
+      description: 'Navegar a la sección Proyectos', 
       icon: '🚀',
       action: () => scrollToSection('projects')
     },
     { 
       combo: 'Ctrl + Alt + C', 
-      description: 'Navigate to Contact section', 
+      description: 'Navegar a la sección Contacto', 
       icon: '📞',
       action: () => scrollToSection('contact')
     },
     { 
       combo: 'Ctrl + Alt + I', 
-      description: 'Toggle theme (light/dark)', 
+      description: 'Cambiar tema (claro/oscuro)', 
       icon: theme === 'dark' ? '🌙' : '☀️',
       action: () => toggleTheme()
     },
     { 
       combo: 'Ctrl + Alt + T', 
-      description: 'Toggle theme button visibility', 
+      description: 'Alternar visibilidad del botón de tema', 
       icon: '👁️',
       action: () => window.dispatchEvent(new CustomEvent('toggleThemeButtonVisibility'))
     },
     { 
       combo: 'Ctrl + Alt + `', 
-      description: 'Toggle experience view mode', 
+      description: 'Cambiar modo de vista de experiencia', 
       icon: '🔄',
       action: () => window.dispatchEvent(new CustomEvent('toggleExperienceViewMode'))
     },
     { 
       combo: 'Ctrl + Alt + M', 
-      description: 'Toggle this help modal', 
+      description: 'Alternar este modal de ayuda', 
       icon: '❓',
       action: () => window.dispatchEvent(new CustomEvent('toggleShortcutsHelp'))
     },
@@ -126,7 +126,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('toggleShortcutsHelp'))}
             className="text-lightTheme-text/60 dark:text-darkTheme-text/60 hover:text-lightTheme-green dark:hover:text-darkTheme-green transition-colors duration-300 font-mono text-lg"
-            aria-label="Close help modal"
+            aria-label="Cerrar modal de ayuda"
           >
             ✕
           </button>
@@ -142,12 +142,12 @@ const KeyboardShortcutsHelp: React.FC = () => {
             
             <h2 className="text-2xl font-bold text-lightTheme-text dark:text-darkTheme-text mb-2 font-mono">
               <span className="text-lightTheme-green dark:text-darkTheme-green"># </span>
-              Keyboard Shortcuts
+              Atajos de Teclado
             </h2>
             
             <p className="text-lightTheme-text/80 dark:text-darkTheme-text/80 font-mono text-sm mb-6">
               <span className="text-lightTheme-yellow dark:text-darkTheme-yellow">// </span>
-              Available keyboard shortcuts for faster navigation
+              Atajos de teclado disponibles para navegación rápida
             </p>
           </div>
 
@@ -161,7 +161,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
                 aria-label={`Execute: ${shortcut.description}`}
               >
                 <div className="flex items-center space-x-3">
-                  <span className="text-lg group-hover:scale-110 transition-transform duration-200">
+                  <span className="text-lg transition-transform duration-200">
                     {shortcut.icon}
                   </span>
                   <span className="text-lightTheme-text dark:text-darkTheme-text group-hover:text-lightTheme-green dark:group-hover:text-darkTheme-green font-mono text-sm text-left transition-colors duration-200">
@@ -187,7 +187,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
           <div className="mt-6 pt-4 border-t border-lightTheme-text/10 dark:border-darkTheme-text/10">
             <p className="text-lightTheme-text/60 dark:text-darkTheme-text/60 font-mono text-xs text-center">
               <span className="text-lightTheme-yellow dark:text-darkTheme-yellow"># </span>
-              Press <kbd className="px-1 py-0.5 bg-lightTheme-green/10 dark:bg-darkTheme-green/10 text-lightTheme-green dark:text-darkTheme-green border border-lightTheme-green/30 dark:border-darkTheme-green/30 rounded text-xs">Ctrl+Alt+M</kbd> or click outside to toggle
+              Presiona <kbd className="px-1 py-0.5 bg-lightTheme-green/10 dark:bg-darkTheme-green/10 text-lightTheme-green dark:text-darkTheme-green border border-lightTheme-green/30 dark:border-darkTheme-green/30 rounded text-xs">Ctrl+Alt+M</kbd> o haz clic afuera para alternar
             </p>
           </div>
         </div>

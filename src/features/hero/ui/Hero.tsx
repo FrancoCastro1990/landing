@@ -4,8 +4,8 @@ import { useScrollHint } from '../hooks/useScrollHint';
 
 const Hero: React.FC = () => {
   const fullText = "";
-  const helloText = "Hello, I'm ";
-  const afterLogoText = " // FullStack Developer | React & TypeScript Specialist";
+  const helloText = "Hola, soy ";
+  const afterLogoText = " // Desarrollador FullStack | Especialista React & TypeScript";
 
   const showLogo = true;
   const showCursor = false;
@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
                   H
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-lightTheme-green dark:bg-darkTheme-green"></span>
                 </span>
-                ello, I'm
+                ola, soy
               </span>
               {showLogo && (
                 <span className="bg-lightTheme-green dark:bg-darkTheme-green text-lightTheme-bg dark:text-darkTheme-bg px-1 mx-1 font-bold">
@@ -65,8 +65,8 @@ const Hero: React.FC = () => {
               <p className="text-base md:text-lg lg:text-xl font-mono text-lightTheme-text/80 dark:text-darkTheme-text/80 max-w-2xl leading-relaxed">
                 <span className="text-lightTheme-yellow dark:text-darkTheme-yellow"># Output:</span>
                 <br />
-                Full Stack Developer with 6+ years of experience specializing in React, TypeScript, and Clean Architecture. 
-                Currently at Isapre Esencial, passionate about mentorship and creating exceptional web experiences.
+                Desarrollador FullStack con 6+ años de experiencia especializado en React, TypeScript y Arquitectura Limpia. 
+                Actualmente en Isapre Esencial, apasionado por las mentorías y crear experiencias web excepcionales.
               </p>
             </div>
           </div>
@@ -79,7 +79,7 @@ const Hero: React.FC = () => {
         >
           <div className="text-lightTheme-green/60 dark:text-darkTheme-green/60 font-mono text-xs mb-2">
             <span className="text-lightTheme-text/40 dark:text-darkTheme-text/40"># </span>
-            scroll to explore
+            desplázate para explorar
           </div>
           <div className="text-lightTheme-green dark:text-darkTheme-green text-2xl animate-bounce font-mono">
             ↓
@@ -87,15 +87,15 @@ const Hero: React.FC = () => {
           
           {/* Help indicator */}
           <div className="mt-8 flex items-center space-x-2 text-lightTheme-text/40 dark:text-darkTheme-text/40 font-mono text-xs">
-            <span>Press</span>
+            <span>Presiona</span>
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('toggleShortcutsHelp'))}
               className="px-2 py-1 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs hover:bg-lightTheme-green/10 dark:hover:bg-darkTheme-green/10 hover:text-lightTheme-green dark:hover:text-darkTheme-green transition-colors duration-200 cursor-pointer"
-              aria-label="Open keyboard shortcuts help"
+              aria-label="Abrir ayuda de atajos de teclado"
             >
               Ctrl+Alt+M
             </button>
-            <span>for keyboard shortcuts</span>
+            <span>para atajos de teclado</span>
           </div>
         </animated.div>
 

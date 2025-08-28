@@ -46,10 +46,10 @@ const Contact: React.FC = () => {
       <div className="max-w-4xl mx-auto">
         <Reveal threshold={0.1}>
           <div className="text-center mb-16">
-            <SectionTitleWithShortcut shortcut="C">Let's Connect</SectionTitleWithShortcut>
+            <SectionTitleWithShortcut shortcut="C">Conectemos</SectionTitleWithShortcut>
             <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto mb-6">
-              Have a project in mind or want to collaborate? I'd love to hear from you. 
-              Send me a message and let's build something amazing together.
+              ¿Tienes un proyecto en mente o quieres colaborar? Me encantaría escucharte. 
+              Envíame un mensaje y construyamos algo increíble juntos.
             </p>
             <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto"></div>
           </div>
@@ -65,14 +65,14 @@ const Contact: React.FC = () => {
               
               <div className="mb-8 text-left">
                 <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed mb-6 font-mono text-sm">
-                  I'm always interested in new opportunities, collaborations, and interesting projects. 
-                  Whether you're looking for a developer, have a question, or just want to say hi, 
-                  feel free to reach out directly!
+                  Siempre estoy interesado en nuevas oportunidades, colaboraciones y proyectos interesantes. 
+                  Ya sea que busques un desarrollador, tengas una pregunta o simplemente quieras saludar, 
+                  ¡no dudes en contactarme directamente!
                 </p>
                 
                 <div className="bg-lightTheme-text/5 dark:bg-darkTheme-text/5 p-4 rounded border border-lightTheme-text/10 dark:border-darkTheme-text/10 mb-6">
                   <p className="text-lightTheme-green dark:text-darkTheme-green font-mono text-sm mb-2">
-                    <span className="text-lightTheme-blue dark:text-darkTheme-blue"># </span>Direct Contact:
+                    <span className="text-lightTheme-blue dark:text-darkTheme-blue"># </span>Contacto Directo:
                   </p>
                   <button
                     onClick={handleEmailClick}
@@ -96,7 +96,7 @@ const Contact: React.FC = () => {
                       target={link.name !== 'Email' ? '_blank' : undefined}
                       rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
                       className="flex flex-col items-center gap-2 text-lightTheme-text dark:text-darkTheme-text hover:text-lightTheme-green dark:hover:text-darkTheme-green transition-colors duration-300 group"
-                      aria-label={`Contact via ${link.name}`}
+                      aria-label={`Contactar vía ${link.name}`}
                     >
                       <div className="text-lightTheme-green dark:text-darkTheme-green group-hover:scale-110 transition-transform duration-300 p-3 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 rounded border border-lightTheme-text/10 dark:border-darkTheme-text/10">
                         {link.icon}

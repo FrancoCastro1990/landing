@@ -34,11 +34,11 @@ const Header: React.FC = () => {
   };
 
   const navigationItems = [
-    { label: 'Home', action: handleScrollToTop, shortcut: 'H' },
-    { label: 'About', action: () => handleScrollToSection('about'), shortcut: 'A' },
-    { label: 'Experience', action: () => handleScrollToSection('experience'), shortcut: 'E' },
-    { label: 'Projects', action: () => handleScrollToSection('projects'), shortcut: 'P' },
-    { label: 'Contact', action: () => handleScrollToSection('contact'), shortcut: 'C' },
+    { label: 'Inicio', action: handleScrollToTop, shortcut: 'I' },
+    { label: 'Acerca de', action: () => handleScrollToSection('about'), shortcut: 'A' },
+    { label: 'Experiencia', action: () => handleScrollToSection('experience'), shortcut: 'E' },
+    { label: 'Proyectos', action: () => handleScrollToSection('projects'), shortcut: 'P' },
+    { label: 'Contacto', action: () => handleScrollToSection('contact'), shortcut: 'C' },
   ];
 
   const renderLabelWithShortcut = (label: string, shortcut: string) => {
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
                 onClick={item.action}
                 variant="ghost"
                 className="font-mono text-sm px-3 py-2 relative group"
-                aria-label={`Navigate to ${item.label}`}
+                aria-label={`Navegar a ${item.label}`}
               >
                 <span className="opacity-0 group-hover:opacity-100 text-lightTheme-green dark:text-darkTheme-green transition-opacity duration-200 absolute left-1">
                   $
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
           <button
             onClick={toggleMenu}
             className="md:hidden text-lightTheme-green dark:text-darkTheme-green hover:text-lightTheme-blue dark:hover:text-darkTheme-blue transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg rounded p-2 font-mono"
-            aria-label="Toggle mobile menu"
+            aria-label="Alternar menú móvil"
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
@@ -123,7 +123,7 @@ const Header: React.FC = () => {
             <button
               onClick={closeMenu}
               className="text-lightTheme-green dark:text-darkTheme-green hover:text-lightTheme-blue dark:hover:text-darkTheme-blue transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg p-1 font-mono"
-              aria-label="Close mobile menu"
+              aria-label="Cerrar menú móvil"
             >
               ✕
             </button>
