@@ -3,6 +3,7 @@ import '@shared/styles/global.css';
 import AnimatedBackground from '@shared/ui/AnimatedBackground.tsx';
 import ThemeToggle from '@shared/ui/ThemeToggle.tsx';
 import KeyboardShortcuts from '@shared/ui/KeyboardShortcuts.tsx';
+import KeyboardShortcutsHelp from '@shared/ui/KeyboardShortcutsHelp.tsx';
 import { DynamicBackground, ScrollIndicator, Hero } from '@features/hero';
 import { Header } from '@features/navigation';
 import { About } from '@features/about';
@@ -70,6 +71,9 @@ import { Footer } from '@features/layout';
     
     <!-- Keyboard Shortcuts -->
     <KeyboardShortcuts client:load />
+    
+    <!-- Keyboard Shortcuts Help Modal -->
+    <KeyboardShortcutsHelp client:load />
     
     <!-- Header -->
     <Header client:load />

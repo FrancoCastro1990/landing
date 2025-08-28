@@ -72,7 +72,7 @@ const Hero: React.FC = () => {
           </div>
         </animated.div>
 
-        {/* Scroll hint arrow */}
+        {/* Scroll hint arrow and help indicator */}
         <animated.div 
           style={scrollHintSpring}
           className="mt-12 flex flex-col items-center"
@@ -83,6 +83,15 @@ const Hero: React.FC = () => {
           </div>
           <div className="text-lightTheme-green dark:text-darkTheme-green text-2xl animate-bounce font-mono">
             ↓
+          </div>
+          
+          {/* Help indicator */}
+          <div className="mt-8 flex items-center space-x-2 text-lightTheme-text/40 dark:text-darkTheme-text/40 font-mono text-xs">
+            <span>Press</span>
+            <kbd className="px-2 py-1 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs">
+              Ctrl+Alt+M
+            </kbd>
+            <span>for keyboard shortcuts</span>
           </div>
         </animated.div>
 

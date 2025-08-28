@@ -10,4 +10,5 @@ export { default as Reveal } from './Reveal';
 export { default as ThemeToggle } from './ThemeToggle';
 export { default as AnimatedBackground } from './AnimatedBackground';
 export { default as KeyboardShortcuts } from './KeyboardShortcuts';
+export { default as KeyboardShortcutsHelp } from './KeyboardShortcutsHelp';
 export { default as AppProviders } from './AppProviders';

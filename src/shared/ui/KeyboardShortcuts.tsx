@@ -9,6 +9,14 @@ const KeyboardShortcuts: React.FC = () => {
     window.dispatchEvent(new CustomEvent('toggleThemeButtonVisibility'));
   };
 
+  const openShortcutsHelp = () => {
+    window.dispatchEvent(new CustomEvent('openShortcutsHelp'));
+  };
+
+  const closeShortcutsHelp = () => {
+    window.dispatchEvent(new CustomEvent('closeShortcutsHelp'));
+  };
+
   const shortcuts = {
     'Ctrl+Alt+h': () => scrollToSection('hero'),
     'Ctrl+Alt+a': () => scrollToSection('about'),
@@ -17,6 +25,8 @@ const KeyboardShortcuts: React.FC = () => {
     'Ctrl+Alt+c': () => scrollToSection('contact'),
     'Ctrl+Alt+i': () => toggleTheme(),
     'Ctrl+Alt+t': () => toggleThemeButtonVisibility(),
+    'Ctrl+Alt+m': () => openShortcutsHelp(),
+    'Ctrl+Alt+q': () => closeShortcutsHelp(),
   };
 
   useShortcuts(shortcuts);
