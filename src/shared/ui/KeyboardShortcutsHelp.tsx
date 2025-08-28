@@ -5,20 +5,14 @@ const KeyboardShortcutsHelp: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleOpenModal = () => {
-      setIsOpen(true);
+    const handleToggleModal = () => {
+      setIsOpen(prev => !prev);
     };
 
-    const handleCloseModal = () => {
-      setIsOpen(false);
-    };
-
-    window.addEventListener('openShortcutsHelp', handleOpenModal);
-    window.addEventListener('closeShortcutsHelp', handleCloseModal);
+    window.addEventListener('toggleShortcutsHelp', handleToggleModal);
 
     return () => {
-      window.removeEventListener('openShortcutsHelp', handleOpenModal);
-      window.removeEventListener('closeShortcutsHelp', handleCloseModal);
+      window.removeEventListener('toggleShortcutsHelp', handleToggleModal);
     };
   }, []);
 
@@ -42,8 +36,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
     { combo: 'Ctrl + Alt + C', description: 'Navigate to Contact section', icon: '📞' },
     { combo: 'Ctrl + Alt + I', description: 'Toggle theme (light/dark)', icon: '🌙' },
     { combo: 'Ctrl + Alt + T', description: 'Toggle theme button visibility', icon: '👁️' },
-    { combo: 'Ctrl + Alt + M', description: 'Show/hide this help modal', icon: '❓' },
-    { combo: 'Ctrl + Alt + Q', description: 'Close this help modal', icon: '❌' },
+    { combo: 'Ctrl + Alt + M', description: 'Toggle this help modal', icon: '❓' },
   ];
 
   if (!isOpen) return null;
@@ -52,7 +45,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
     <animated.div
       style={backdropSpring}
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50"
-      onClick={() => window.dispatchEvent(new CustomEvent('closeShortcutsHelp'))}
+      onClick={() => window.dispatchEvent(new CustomEvent('toggleShortcutsHelp'))}
     >
       <animated.div
         style={modalSpring}
@@ -72,7 +65,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
             </span>
           </div>
           <button
-            onClick={() => window.dispatchEvent(new CustomEvent('closeShortcutsHelp'))}
+            onClick={() => window.dispatchEvent(new CustomEvent('toggleShortcutsHelp'))}
             className="text-lightTheme-text/60 dark:text-darkTheme-text/60 hover:text-lightTheme-green dark:hover:text-darkTheme-green transition-colors duration-300 font-mono text-lg"
             aria-label="Close help modal"
           >
@@ -131,7 +124,7 @@ const KeyboardShortcutsHelp: React.FC = () => {
           <div className="mt-6 pt-4 border-t border-lightTheme-text/10 dark:border-darkTheme-text/10">
             <p className="text-lightTheme-text/60 dark:text-darkTheme-text/60 font-mono text-xs text-center">
               <span className="text-lightTheme-yellow dark:text-darkTheme-yellow"># </span>
-              Press <kbd className="px-1 py-0.5 bg-lightTheme-green/10 dark:bg-darkTheme-green/10 text-lightTheme-green dark:text-darkTheme-green border border-lightTheme-green/30 dark:border-darkTheme-green/30 rounded text-xs">Ctrl+Alt+Q</kbd> or click outside to close
+              Press <kbd className="px-1 py-0.5 bg-lightTheme-green/10 dark:bg-darkTheme-green/10 text-lightTheme-green dark:text-darkTheme-green border border-lightTheme-green/30 dark:border-darkTheme-green/30 rounded text-xs">Ctrl+Alt+M</kbd> or click outside to toggle
             </p>
           </div>
         </div>
