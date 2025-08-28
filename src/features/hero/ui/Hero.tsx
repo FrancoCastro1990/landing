@@ -3,19 +3,13 @@ import { useTypingAnimation } from '../hooks/useTypingAnimation';
 import { useScrollHint } from '../hooks/useScrollHint';
 
 const Hero: React.FC = () => {
-  const fullText = "Hello, I'm ";
+  const fullText = "";
+  const helloText = "Hello, I'm ";
   const afterLogoText = " // FullStack Developer | React & TypeScript Specialist";
 
-  const {
-    displayedText,
-    displayedAfterText,
-    showCursor,
-    showLogo,
-    typingComplete,
-  } = useTypingAnimation({
-    fullText,
-    afterText: afterLogoText,
-  });
+  const showLogo = true;
+  const showCursor = false;
+  const typingComplete = true;
 
   const { showScrollHint } = useScrollHint(typingComplete);
 
@@ -33,7 +27,7 @@ const Hero: React.FC = () => {
   });
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4">
+    <section id="hero" className="min-h-screen flex items-center justify-center px-4">
       <div className="max-w-4xl mx-auto">
         <animated.div style={titleSpring}>
           <div className="mb-8">
@@ -46,13 +40,19 @@ const Hero: React.FC = () => {
             
             <h1 className="text-xl md:text-2xl lg:text-3xl font-mono text-lightTheme-text dark:text-darkTheme-text mb-6 leading-relaxed">
               <span className="text-lightTheme-green dark:text-darkTheme-green">{'> '}</span>
-              {displayedText}
+              <span className="relative">
+                <span className="relative">
+                  H
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-lightTheme-green dark:bg-darkTheme-green"></span>
+                </span>
+                ello, I'm
+              </span>
               {showLogo && (
                 <span className="bg-lightTheme-green dark:bg-darkTheme-green text-lightTheme-bg dark:text-darkTheme-bg px-1 mx-1 font-bold">
                   &lt;FCastro.dev /&gt;
                 </span>
               )}
-              {displayedAfterText}
+              {afterLogoText}
               <span 
                 className={`ml-1 text-lightTheme-green dark:text-darkTheme-green ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}
               >

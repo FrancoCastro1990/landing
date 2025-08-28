@@ -1,6 +1,6 @@
 import { useSpring, animated } from '@react-spring/web';
 import Reveal from '@shared/ui/Reveal';
-import SectionTitle from '@shared/ui/SectionTitle';
+import SectionTitleWithShortcut from '@shared/ui/SectionTitleWithShortcut';
 import SubTitle from '@shared/ui/SubTitle';
 import Card from '@shared/ui/Card';
 
@@ -46,7 +46,7 @@ const Contact: React.FC = () => {
       <div className="max-w-4xl mx-auto">
         <Reveal threshold={0.1}>
           <div className="text-center mb-16">
-            <SectionTitle>Let's Connect</SectionTitle>
+            <SectionTitleWithShortcut shortcut="C">Let's Connect</SectionTitleWithShortcut>
             <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto mb-6">
               Have a project in mind or want to collaborate? I'd love to hear from you. 
               Send me a message and let's build something amazing together.

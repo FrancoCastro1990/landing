@@ -1,6 +1,6 @@
 import { useSpring, animated } from '@react-spring/web';
 import Reveal from '@shared/ui/Reveal';
-import SectionTitle from '@shared/ui/SectionTitle';
+import SectionTitleWithShortcut from '@shared/ui/SectionTitleWithShortcut';
 import SubTitle from '@shared/ui/SubTitle';
 import Card from '@shared/ui/Card';
 import Badge from '@shared/ui/Badge';
@@ -18,7 +18,7 @@ const About: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <Reveal threshold={0.1}>
           <div className="text-center mb-16">
-            <SectionTitle>About Me</SectionTitle>
+            <SectionTitleWithShortcut shortcut="A">About Me</SectionTitleWithShortcut>
             <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto"></div>
           </div>
         </Reveal>

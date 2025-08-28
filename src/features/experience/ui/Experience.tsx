@@ -1,5 +1,5 @@
 import Reveal from '@shared/ui/Reveal';
-import SectionTitle from '@shared/ui/SectionTitle';
+import SectionTitleWithShortcut from '@shared/ui/SectionTitleWithShortcut';
 import Card from '@shared/ui/Card';
 import Badge from '@shared/ui/Badge';
 
@@ -101,7 +101,7 @@ const Experience: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <Reveal threshold={0.1}>
           <div className="text-center mb-16">
-            <SectionTitle>Professional Experience</SectionTitle>
+            <SectionTitleWithShortcut shortcut="E">Professional Experience</SectionTitleWithShortcut>
             <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto mb-4"></div>
             <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto">
               6+ years of professional development experience across various industries

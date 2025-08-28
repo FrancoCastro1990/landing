@@ -3,6 +3,7 @@ import { useSpring, animated } from '@react-spring/web';
 
 const ThemeToggle: React.FC = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   useEffect(() => {
     // Load theme from localStorage on mount
@@ -13,6 +14,27 @@ const ThemeToggle: React.FC = () => {
     setTheme(initialTheme);
     // Apply 'dark' class for dark theme, empty for light theme (Tailwind's dark mode)
     document.documentElement.className = initialTheme === 'dark' ? 'dark' : '';
+
+    // Load visibility from localStorage
+    const savedVisibility = localStorage.getItem('themeToggleVisible');
+    if (savedVisibility !== null) {
+      setIsVisible(JSON.parse(savedVisibility));
+    }
+
+    // Listen for visibility toggle events
+    const handleToggleVisibility = () => {
+      setIsVisible(prev => {
+        const newVisibility = !prev;
+        localStorage.setItem('themeToggleVisible', JSON.stringify(newVisibility));
+        return newVisibility;
+      });
+    };
+
+    window.addEventListener('toggleThemeButtonVisibility', handleToggleVisibility);
+
+    return () => {
+      window.removeEventListener('toggleThemeButtonVisibility', handleToggleVisibility);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -33,17 +55,26 @@ const ThemeToggle: React.FC = () => {
     config: { tension: 300, friction: 30 },
   });
 
+  const visibilitySpring = useSpring({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'scale(1)' : 'scale(0.8)',
+    pointerEvents: isVisible ? 'all' : 'none',
+    config: { tension: 280, friction: 60 },
+  });
+
   return (
     <animated.button
       onClick={toggleTheme}
-      style={buttonSpring}
+      style={{ ...buttonSpring, ...visibilitySpring }}
       className="fixed top-20 right-4 z-50 p-3 bg-lightTheme-magenta/20 dark:bg-darkTheme-blue/80 border border-lightTheme-green/20 dark:border-darkTheme-green/20 rounded-lg hover:bg-lightTheme-magenta/30 dark:hover:bg-darkTheme-blue/90 hover:border-lightTheme-green/40 dark:hover:border-darkTheme-green/40 transition-colors duration-300"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
       onMouseEnter={(e) => {
+        if (!isVisible) return;
         const target = e.target as HTMLElement;
         target.style.transform = 'scale(1.05)';
       }}
       onMouseLeave={(e) => {
+        if (!isVisible) return;
         const target = e.target as HTMLElement;
         target.style.transform = 'scale(1)';
       }}

@@ -1,5 +1,6 @@
 export { default as Card } from './Card';
 export { default as SectionTitle } from './SectionTitle';
+export { default as SectionTitleWithShortcut } from './SectionTitleWithShortcut';
 export { default as Logo } from './Logo';
 export { default as Button } from './Button';
 export { default as Badge } from './Badge';
@@ -8,3 +9,5 @@ export { default as SubTitle } from './SubTitle';
 export { default as Reveal } from './Reveal';
 export { default as ThemeToggle } from './ThemeToggle';
 export { default as AnimatedBackground } from './AnimatedBackground';
+export { default as KeyboardShortcuts } from './KeyboardShortcuts';
+export { default as AppProviders } from './AppProviders';

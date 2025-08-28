@@ -1,7 +1,7 @@
 import { useTrail, animated } from '@react-spring/web';
 import ProjectCard from './ProjectCard';
 import Reveal from '@shared/ui/Reveal';
-import SectionTitle from '@shared/ui/SectionTitle';
+import SectionTitleWithShortcut from '@shared/ui/SectionTitleWithShortcut';
 import Button from '@shared/ui/Button';
 
 interface Project {
@@ -53,7 +53,7 @@ const ProjectsGrid: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <Reveal threshold={0.1}>
           <div className="text-center mb-16">
-            <SectionTitle>Featured Projects</SectionTitle>
+            <SectionTitleWithShortcut shortcut="P">Featured Projects</SectionTitleWithShortcut>
             <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto mb-6">
               Some of my featured projects that demonstrate my experience in CLI tool development, 
               system automation, and modern web applications.

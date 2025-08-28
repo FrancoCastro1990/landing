@@ -34,12 +34,28 @@ const Header: React.FC = () => {
   };
 
   const navigationItems = [
-    { label: 'Home', action: handleScrollToTop },
-    { label: 'About', action: () => handleScrollToSection('about') },
-    { label: 'Experience', action: () => handleScrollToSection('experience') },
-    { label: 'Projects', action: () => handleScrollToSection('projects') },
-    { label: 'Contact', action: () => handleScrollToSection('contact') },
+    { label: 'Home', action: handleScrollToTop, shortcut: 'H' },
+    { label: 'About', action: () => handleScrollToSection('about'), shortcut: 'A' },
+    { label: 'Experience', action: () => handleScrollToSection('experience'), shortcut: 'E' },
+    { label: 'Projects', action: () => handleScrollToSection('projects'), shortcut: 'P' },
+    { label: 'Contact', action: () => handleScrollToSection('contact'), shortcut: 'C' },
   ];
+
+  const renderLabelWithShortcut = (label: string, shortcut: string) => {
+    const index = label.toLowerCase().indexOf(shortcut.toLowerCase());
+    if (index === -1) return label;
+    
+    return (
+      <>
+        {label.slice(0, index)}
+        <span className="relative">
+          {label.slice(index, index + 1)}
+          <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-lightTheme-green dark:bg-darkTheme-green"></span>
+        </span>
+        {label.slice(index + 1)}
+      </>
+    );
+  };
 
   return (
     <animated.header 
@@ -69,7 +85,7 @@ const Header: React.FC = () => {
                   $
                 </span>
                 <span className="group-hover:translate-x-2 transition-transform duration-200 inline-block">
-                  {item.label}
+                  {renderLabelWithShortcut(item.label, item.shortcut)}
                 </span>
               </Link>
             ))}
@@ -124,7 +140,9 @@ const Header: React.FC = () => {
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <span className="text-lightTheme-green dark:text-darkTheme-green mr-2">$</span>
-                    {item.label.toLowerCase()}
+                    <span className="lowercase">
+                      {renderLabelWithShortcut(item.label, item.shortcut)}
+                    </span>
                   </button>
                 ))}
               </nav>
