@@ -48,8 +48,8 @@ const Contact: React.FC = () => {
           <div className="text-center mb-16">
             <SectionTitleWithShortcut shortcut="C">Conectemos</SectionTitleWithShortcut>
             <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto mb-6">
-              ¿Tienes un proyecto en mente o quieres colaborar? Me encantaría escucharte. 
-              Envíame un mensaje y construyamos algo increíble juntos.
+              ¿Tienes ganas de charlar sobre desarrollo, intercambiar ideas o simplemente conectar? 
+              Me encantaría conversar contigo sobre tecnología y proyectos.
             </p>
             <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto"></div>
           </div>
@@ -65,9 +65,9 @@ const Contact: React.FC = () => {
               
               <div className="mb-8 text-left">
                 <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed mb-6 font-mono text-sm">
-                  Siempre estoy interesado en nuevas oportunidades, colaboraciones y proyectos interesantes. 
-                  Ya sea que busques un desarrollador, tengas una pregunta o simplemente quieras saludar, 
-                  ¡no dudes en contactarme directamente!
+                  Me apasiona conversar sobre desarrollo de software, arquitectura, buenas prácticas y las últimas 
+                  tendencias tecnológicas. Si quieres intercambiar ideas, discutir soluciones técnicas o 
+                  simplemente charlar sobre código, ¡será un placer conectar contigo!
                 </p>
                 
                 <div className="bg-lightTheme-text/5 dark:bg-darkTheme-text/5 p-4 rounded border border-lightTheme-text/10 dark:border-darkTheme-text/10 mb-6">
