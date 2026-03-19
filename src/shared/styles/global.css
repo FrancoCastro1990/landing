@@ -3,6 +3,26 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-surface: 14 14 14;
+  --color-surface-lowest: 0 0 0;
+  --color-surface-low: 19 19 19;
+  --color-surface-container: 26 26 26;
+  --color-surface-high: 32 32 31;
+  --color-surface-highest: 38 38 38;
+  --color-surface-variant: 38 38 38;
+  --color-surface-dim: 14 14 14;
+  --color-surface-bright: 44 44 44;
+  --color-primary: 250 204 21;
+  --color-primary-dim: 238 194 0;
+  --color-primary-container: 251 205 22;
+  --color-on-surface: 255 255 255;
+  --color-on-surface-variant: 173 170 170;
+  --color-on-primary: 98 78 0;
+  --color-outline: 118 117 117;
+  --color-outline-variant: 72 72 71;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -12,8 +32,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: rgb(var(--color-surface-lowest));
+    color: rgb(var(--color-on-surface));
     font-family: 'Manrope', sans-serif;
   }
 
@@ -28,9 +48,13 @@
   }
 
   ::selection {
-    background-color: #FACC15;
-    color: #000000;
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--color-on-primary));
   }
+}
+
+section, header, footer, div, span, a, button, p, h1, h2, h3, ul, li {
+  transition: background-color 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
 }
 
 /* Reduced motion preferences */

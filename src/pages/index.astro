@@ -7,6 +7,7 @@ import { Experience } from '@features/experience';
 import { ProjectsGrid } from '@features/projects';
 import { Contact } from '@features/contact';
 import { Footer } from '@features/layout';
+import { ThemeCustomizer } from '@features/theme-customizer';
 ---
 
 <!doctype html>
@@ -37,6 +38,22 @@ import { Footer } from '@features/layout';
     <!-- Theme color -->
     <meta name="theme-color" content="#000000" />
 
+    <!-- Restore saved theme before render -->
+    <script is:inline>
+      (function() {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          if (saved) {
+            var vars = JSON.parse(saved);
+            var root = document.documentElement;
+            Object.keys(vars).forEach(function(key) {
+              root.style.setProperty(key, vars[key]);
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Additional SEO -->
     <meta name="author" content="Franco Castro" />
     <meta name="robots" content="index, follow" />
@@ -57,5 +74,8 @@ import { Footer } from '@features/layout';
 
     <!-- Footer -->
     <Footer />
+
+    <!-- Theme Customizer -->
+    <ThemeCustomizer client:load />
   </body>
 </html>

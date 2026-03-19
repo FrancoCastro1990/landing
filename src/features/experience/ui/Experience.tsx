@@ -86,7 +86,7 @@ const Experience: React.FC = () => {
         <div className="space-y-0">
           {experiences.map((exp, index) => (
             <Reveal key={exp.year + exp.company} delay={index * 100}>
-              <div className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-16 border-t border-white/5 hover:bg-surface-low transition-colors duration-500 -mx-8 px-8">
+              <div className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-16 border-t border-on-surface/5 hover:bg-surface-low transition-colors duration-500 -mx-8 px-8">
                 {/* Year */}
                 <div className="lg:col-span-2">
                   <span className="font-headline italic text-5xl text-primary/20 group-hover:text-primary/40 transition-colors duration-500">

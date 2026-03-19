@@ -60,7 +60,7 @@ const Header: React.FC = () => {
               <button
                 key={item.label}
                 onClick={item.action}
-                className="text-white/60 hover:text-white transition-colors duration-300 font-label uppercase tracking-[0.1rem] text-[12px]"
+                className="text-on-surface/60 hover:text-on-surface transition-colors duration-300 font-label uppercase tracking-[0.1rem] text-[12px]"
                 aria-label={`Navegar a ${item.label}`}
               >
                 {item.label}
@@ -96,7 +96,7 @@ const Header: React.FC = () => {
         <div className="absolute inset-0 bg-surface-lowest backdrop-blur-xl" />
 
         <div className="relative z-10 flex flex-col h-full bg-surface-lowest">
-          <div className="flex items-center justify-between p-6 border-b border-white/5">
+          <div className="flex items-center justify-between p-6 border-b border-on-surface/5">
             <span className="font-label font-black uppercase tracking-[0.2rem] text-primary text-lg">
               FRANCO_CASTRO
             </span>
@@ -117,7 +117,7 @@ const Header: React.FC = () => {
                 <button
                   key={item.label}
                   onClick={item.action}
-                  className="w-full text-left px-4 py-4 text-white/60 hover:text-primary transition-all duration-300 font-label uppercase tracking-[0.1rem] text-sm"
+                  className="w-full text-left px-4 py-4 text-on-surface/60 hover:text-primary transition-all duration-300 font-label uppercase tracking-[0.1rem] text-sm"
                 >
                   {item.label}
                 </button>
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
       {/* Mobile Menu Background Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+          className="md:hidden fixed inset-0 bg-surface-lowest/60 backdrop-blur-sm z-40"
           onClick={closeMenu}
           aria-hidden="true"
         />

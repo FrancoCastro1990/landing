@@ -8,9 +8,9 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="w-full border-t border-white/5 bg-surface">
+    <footer className="w-full border-t border-on-surface/5 bg-surface">
       <div className="flex flex-col md:flex-row justify-between items-center px-12 py-16 gap-8">
-        <div className="font-label uppercase tracking-[0.1rem] text-[10px] text-white/40">
+        <div className="font-label uppercase tracking-[0.1rem] text-[10px] text-on-surface/40">
           &copy;{currentYear} FRANCO CASTRO. TODOS LOS DERECHOS RESERVADOS.
         </div>
 
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
               href={link.url}
               target={link.name !== 'Email' ? '_blank' : undefined}
               rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-              className="font-label uppercase tracking-[0.1rem] text-[10px] text-white/40 hover:text-white transition-colors"
+              className="font-label uppercase tracking-[0.1rem] text-[10px] text-on-surface/40 hover:text-on-surface transition-colors"
               aria-label={link.name}
             >
               {link.name}
