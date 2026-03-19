@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="w-full border-t border-on-surface/5 bg-surface">
-      <div className="flex flex-col md:flex-row justify-between items-center px-12 py-16 gap-8">
+      <div className="flex flex-col md:flex-row justify-between items-center px-12 pt-16 pb-24 md:pb-16 gap-8">
         <div className="font-label uppercase tracking-[0.1rem] text-[10px] text-on-surface/40">
           &copy;{currentYear} FRANCO CASTRO. TODOS LOS DERECHOS RESERVADOS.
         </div>
@@ -21,19 +21,12 @@ const Footer: React.FC = () => {
               href={link.url}
               target={link.name !== 'Email' ? '_blank' : undefined}
               rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-              className="font-label uppercase tracking-[0.1rem] text-[10px] text-on-surface/40 hover:text-on-surface transition-colors"
+              className="font-label uppercase tracking-[0.1rem] text-[10px] text-on-surface/40 hover:text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
               aria-label={link.name}
             >
               {link.name}
             </a>
           ))}
-        </div>
-
-        <div className="text-primary flex items-center gap-2">
-          <span className="font-label uppercase tracking-[0.2rem] text-[10px]">
-            Disponible 2025
-          </span>
-          <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
         </div>
       </div>
     </footer>

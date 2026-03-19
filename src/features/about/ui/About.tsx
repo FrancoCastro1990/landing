@@ -70,7 +70,7 @@ const About: React.FC = () => {
           <Reveal delay={300} className="lg:col-span-5">
             <div className="space-y-12">
               {/* Stats */}
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-8" aria-live="polite" aria-atomic="true">
                 <div ref={yearsRef}>
                   <animated.span className="block font-headline italic text-6xl text-primary">
                     {yearsCount.to((n) => `${Math.floor(n)}+`)}

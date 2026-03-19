@@ -1,11 +1,12 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
 import path from 'path';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  integrations: [react(), sitemap()],
   site: 'https://fcastro.dev',
   build: {
     inlineStylesheets: 'auto',

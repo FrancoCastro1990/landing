@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTransition, animated } from '@react-spring/web';
 
 const STORAGE_KEY = 'portfolio-theme';
@@ -266,6 +266,16 @@ const ThemeCustomizer: React.FC = () => {
     } catch {}
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   const transitions = useTransition(isOpen, {
     from: { opacity: 0, transform: 'scale(0.95) translateY(10px)' },
     enter: { opacity: 1, transform: 'scale(1) translateY(0px)' },
@@ -456,6 +466,7 @@ function ColorPicker({ label, value, onChange }: { label: string; value: string;
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="absolute inset-0 w-[200%] h-[200%] -top-1/2 -left-1/2 cursor-pointer border-none"
+          aria-label={`Seleccionar color de ${label}`}
         />
       </div>
       <span className="font-label text-[9px] uppercase tracking-wider text-on-surface-variant">{label}</span>

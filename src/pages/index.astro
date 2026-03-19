@@ -18,23 +18,26 @@ import { NodeNetwork } from '@features/background';
     <meta name="description" content="Franco Castro — Desarrollador Full Stack con 6+ anos de experiencia en React, TypeScript y Arquitectura Limpia." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Franco Castro — Full Stack Developer</title>
+    <title>Franco Castro — Desarrollador Full Stack</title>
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Franco Castro — Full Stack Developer" />
+    <meta property="og:title" content="Franco Castro — Desarrollador Full Stack" />
     <meta property="og:description" content="Desarrollador Full Stack con 6+ anos de experiencia. Especializado en React, TypeScript, Arquitectura Limpia y mentorias de equipo." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://fcastro.dev" />
     <meta property="og:site_name" content="Franco Castro" />
+    <meta property="og:image" content="https://fcastro.dev/og-image.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Franco Castro — Full Stack Developer" />
+    <meta name="twitter:title" content="Franco Castro — Desarrollador Full Stack" />
     <meta name="twitter:description" content="Desarrollador Full Stack con 6+ anos de experiencia en React, TypeScript y Arquitectura Limpia" />
+    <meta name="twitter:image" content="https://fcastro.dev/og-image.png" />
 
-    <!-- Preload critical fonts -->
+    <!-- Fonts — loaded via link, not CSS @import, to avoid render blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@1,400;1,700&family=Manrope:wght@400;700;800&display=swap" />
 
     <!-- Theme color -->
     <meta name="theme-color" content="#000000" />
@@ -59,9 +62,25 @@ import { NodeNetwork } from '@features/background';
     <meta name="author" content="Franco Castro" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://fcastro.dev" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Franco Castro",
+        "url": "https://fcastro.dev",
+        "jobTitle": "Desarrollador Full Stack",
+        "email": "franco.castro.villanueva.90@gmail.com",
+        "sameAs": [
+          "https://github.com/FrancoCastro1990",
+          "https://www.linkedin.com/in/franco-castro-villanueva-035905174/"
+        ]
+      }
+    </script>
   </head>
   <body class="bg-surface-lowest text-on-surface font-body">
-    <NodeNetwork client:load />
+    <NodeNetwork client:idle />
 
     <!-- Header -->
     <Header client:load />
@@ -79,6 +98,6 @@ import { NodeNetwork } from '@features/background';
     <Footer />
 
     <!-- Theme Customizer -->
-    <ThemeCustomizer client:load />
+    <ThemeCustomizer client:idle />
   </body>
 </html>

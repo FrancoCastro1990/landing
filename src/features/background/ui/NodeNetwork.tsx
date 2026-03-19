@@ -210,7 +210,7 @@ const NodeNetwork: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
-      <canvas ref={canvasRef} className="block w-full h-full" />
+      <canvas ref={canvasRef} className="block w-full h-full" role="presentation" />
     </div>
   );
 };

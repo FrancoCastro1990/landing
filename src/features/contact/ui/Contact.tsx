@@ -26,8 +26,8 @@ const Contact: React.FC = () => {
 
         <Reveal delay={200}>
           <div className="flex flex-col items-center gap-12">
-            <a className="group relative" href="mailto:franco.castro.villanueva.90@gmail.com">
-              <span className="font-headline italic text-3xl md:text-5xl text-on-surface transition-colors group-hover:text-primary">
+            <a className="group relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-4 focus:ring-offset-surface-lowest" href="mailto:franco.castro.villanueva.90@gmail.com">
+              <span className="font-headline italic text-xl sm:text-3xl md:text-5xl text-on-surface transition-colors group-hover:text-primary break-all">
                 franco.castro.villanueva.90@gmail.com
               </span>
               <div className="absolute -bottom-2 left-0 w-0 h-[1px] bg-primary transition-all duration-500 group-hover:w-full" />
@@ -40,7 +40,7 @@ const Contact: React.FC = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-on-surface-variant hover:text-primary transition-colors duration-300"
+                  className="text-on-surface-variant hover:text-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-lowest"
                   aria-label={link.label}
                 >
                   <span className="font-label uppercase tracking-widest text-[10px]">
