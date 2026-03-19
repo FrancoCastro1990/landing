@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Manrope:wght@200;400;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,10 +7,14 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
   }
 
   /* Hide scrollbar */
@@ -18,20 +22,14 @@
     display: none;
   }
 
-  /* Hide scrollbar for IE, Edge and Firefox */
   html {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
-  body {
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-  }
-}
-
-@layer components {
-  .glow {
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  ::selection {
+    background-color: #FACC15;
+    color: #000000;
   }
 }
 

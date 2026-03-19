@@ -1,170 +1,130 @@
-import { useSpring, animated } from '@react-spring/web';
 import Reveal from '@shared/ui/Reveal';
-import SectionTitleWithShortcut from '@shared/ui/SectionTitleWithShortcut';
-import ActionButton from '@shared/ui/ActionButton';
-import ExperienceBasic from './ExperienceBasic';
-import ExperienceAdvanced from './ExperienceAdvanced';
-import { useExperienceViewMode } from '../hooks';
+import Badge from '@shared/ui/Badge';
 
-interface Experience {
-  id: number;
-  timestamp: string;
+interface ExperienceItem {
+  year: string;
   position: string;
   company: string;
   period: string;
-  location: string;
-  commitMessage: string;
   highlights: string[];
   skills: string[];
 }
 
 const Experience: React.FC = () => {
-  const { viewMode, isBasic } = useExperienceViewMode();
-
-  const experiences: Experience[] = [
+  const experiences: ExperienceItem[] = [
     {
-      id: 1,
-      timestamp: "2024-01-15 09:00:00",
-      position: "Desarrollador Full Stack",
-      company: "Isapre Esencial",
-      period: "Ene 2024 – Presente (1 año 8 meses)",
-      location: "Chile (Remoto)",
-      commitMessage: "feat: implementar arquitectura limpia y programa de mentorías",
+      year: '2024',
+      position: 'Desarrollador Full Stack',
+      company: 'Isapre Esencial',
+      period: 'Ene 2024 — Presente',
       highlights: [
-        "Frontend: Refactorizé código legacy, creé constructor de formularios dinámicos, implementé arquitectura limpia",
-        "Backend: Implementé Arquitectura Limpia y principios SOLID, creé plantillas de estandarización",
-        "Mentorías: Realicé charlas internas sobre testing, hooks personalizados, principios SOLID y mejores prácticas de React",
-        "Herramientas Personalizadas: Desarrollé decorador para seguimiento simple de flujos"
+        'Refactorice codigo legacy e implemente arquitectura limpia',
+        'Cree constructor de formularios dinamicos',
+        'Realize charlas internas sobre testing, hooks y SOLID',
+        'Desarrolle decorador para seguimiento de flujos',
       ],
-      skills: ["Principios SOLID", "Arquitectura Limpia", "React", "TypeScript", "Pruebas Automatizadas", "Revisión de Código"]
+      skills: ['SOLID', 'Clean Architecture', 'React', 'TypeScript', 'Testing'],
     },
     {
-      id: 2,
-      timestamp: "2023-02-10 08:30:00",
-      position: "Desarrollador Full Stack",
-      company: "Babel",
-      period: "Feb 2023 – Ene 2024 (1 año)",
-      location: "Chile (Remoto)",
-      commitMessage: "feat: implementar soluciones de consultoría empresarial",
+      year: '2023',
+      position: 'Desarrollador Full Stack',
+      company: 'Babel',
+      period: 'Feb 2023 — Ene 2024',
       highlights: [
-        "Trabajé como consultor para Isapre Esencial",
-        "Implementé soluciones de nivel empresarial con patrones de arquitectura modernos"
+        'Consultor para Isapre Esencial',
+        'Implemente soluciones enterprise con patrones modernos',
       ],
-      skills: ["TypeScript", "React.js", "Principios SOLID", "Revisión de Código", "Pruebas Automatizadas", "Patrones de Diseño"]
+      skills: ['TypeScript', 'React.js', 'SOLID', 'Design Patterns'],
     },
     {
-      id: 3,
-      timestamp: "2022-09-15 10:15:00",
-      position: "Desarrollador Front-End",
-      company: "Mediastream",
-      period: "Sep 2022 – Dic 2022 (4 meses)",
-      location: "Chile",
-      commitMessage: "perf: reducir tiempo de carga de landing de 9s a 2s",
+      year: '2022',
+      position: 'Desarrollador Front-End',
+      company: 'Mediastream',
+      period: 'Sep 2022 — Dic 2022',
       highlights: [
-        "Creé sistema de carga perezosa para componentes basado en visibilidad del viewport",
-        "Reduje el tiempo de carga de la landing de 9 segundos a 2 segundos (78% de mejora)",
-        "Implementé estrategias de optimización de rendimiento"
+        'Reduje tiempo de carga de 9s a 2s (78% mejora)',
+        'Cree sistema de lazy loading basado en viewport',
       ],
-      skills: ["Principios SOLID", "React.js", "Optimización de Rendimiento", "Control de Versiones", "Pruebas Automatizadas"]
+      skills: ['React.js', 'Performance', 'Lazy Loading'],
     },
     {
-      id: 4,
-      timestamp: "2020-11-20 14:45:00",
-      position: "Desarrollador Fullstack",
-      company: "Peanut Hub",
-      period: "Nov 2020 – Sep 2022 (1 año 11 meses)",
-      location: "Remoto",
-      commitMessage: "feat: construir flujos configurables y componentes personalizados",
+      year: '2020',
+      position: 'Desarrollador Fullstack',
+      company: 'Peanut Hub',
+      period: 'Nov 2020 — Sep 2022',
       highlights: [
-        "Cliente: Crediautos.cl - Único desarrollador front-end",
-        "Construí flujos configurables para simulación y contratación",
-        "Desarrollé componentes personalizados para integración con WordPress",
-        "Páginas desarrolladas en React + TypeScript"
+        'Unico dev front-end para Crediautos.cl',
+        'Construi flujos configurables para simulacion y contratacion',
       ],
-      skills: ["Principios SOLID", "React.js", "TypeScript", "WordPress", "Control de Versiones", "Pruebas Automatizadas"]
+      skills: ['React.js', 'TypeScript', 'WordPress'],
     },
     {
-      id: 5,
-      timestamp: "2019-06-01 11:30:00",
-      position: "Desarrollador Front-End",
-      company: "WoorKit",
-      period: "Jun 2019 – Dic 2019 (7 meses)",
-      location: "Remoto",
-      commitMessage: "feat: desarrollar plataforma de búsqueda de empleos con Angular + NestJS",
+      year: '2019',
+      position: 'Desarrollador Front-End',
+      company: 'WoorKit',
+      period: 'Jun 2019 — Dic 2019',
       highlights: [
-        "Desarrollé plataforma de búsqueda de empleos con pruebas psicológicas",
-        "Implementé sistema de perfiles de usuario y empresa",
-        "Construí solución full-stack con frontend Angular y backend NestJS"
+        'Desarrolle plataforma de busqueda de empleos',
+        'Solucion full-stack con Angular y NestJS',
       ],
-      skills: ["Angular", "NestJS", "TypeScript", "Desarrollo Web", "Desarrollo Full-Stack"]
-    }
+      skills: ['Angular', 'NestJS', 'TypeScript'],
+    },
   ];
 
-  // Animation for mode switching
-  const modeSpring = useSpring({
-    opacity: 1,
-    transform: 'translateY(0px)',
-    from: { opacity: 0, transform: 'translateY(20px)' },
-    config: { tension: 280, friction: 60 },
-    key: viewMode, // Re-trigger animation when mode changes
-  });
-
   return (
-    <section id="experience" className="py-20 px-4">
+    <section id="experience" className="py-32 px-8 lg:px-24 bg-surface-lowest">
       <div className="max-w-6xl mx-auto">
-        <Reveal threshold={0.1}>
-          <div className="text-center mb-16">
-            <SectionTitleWithShortcut shortcut="E">Experiencia Profesional</SectionTitleWithShortcut>
-            <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto mb-4"></div>
-            <div className="space-y-2">
-              <p className="text-lightTheme-yellow dark:text-darkTheme-yellow max-w-2xl mx-auto">
-                6+ años de experiencia en desarrollo profesional en diversas industrias
-              </p>
-              
-              {/* Mode indicator */}
-              <div className="flex items-center justify-center space-x-2 text-lightTheme-text/40 dark:text-darkTheme-text/40 font-mono text-xs">
-                <span>Modo de vista:</span>
-                <span className="text-lightTheme-green dark:text-darkTheme-green">
-                  {isBasic ? 'Básico' : 'Avanzado'}
-                </span>
-                <span>•</span>
-                <span>Presiona</span>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('toggleExperienceViewMode'))}
-                  className="px-1 py-0.5 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 text-lightTheme-green/60 dark:text-darkTheme-green/60 border border-lightTheme-text/10 dark:border-darkTheme-text/10 rounded text-xs hover:bg-lightTheme-green/10 dark:hover:bg-darkTheme-green/10 hover:text-lightTheme-green dark:hover:text-darkTheme-green transition-colors duration-200 cursor-pointer"
-                  aria-label="Cambiar modo de vista de experiencia"
-                >
-                  Ctrl+Alt+`
-                </button>
-                <span>para alternar</span>
+        <Reveal>
+          <div className="mb-24 flex justify-between items-baseline">
+            <p className="font-label uppercase tracking-[0.3rem] text-sm text-on-surface-variant">
+              Experiencia
+            </p>
+            <span className="font-headline italic text-2xl text-primary">02</span>
+          </div>
+        </Reveal>
+
+        <div className="space-y-0">
+          {experiences.map((exp, index) => (
+            <Reveal key={exp.year + exp.company} delay={index * 100}>
+              <div className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-16 border-t border-white/5 hover:bg-surface-low transition-colors duration-500 -mx-8 px-8">
+                {/* Year */}
+                <div className="lg:col-span-2">
+                  <span className="font-headline italic text-5xl text-primary/20 group-hover:text-primary/40 transition-colors duration-500">
+                    {exp.year}
+                  </span>
+                </div>
+
+                {/* Role */}
+                <div className="lg:col-span-4">
+                  <p className="font-label uppercase tracking-widest text-[10px] text-primary mb-2">
+                    {exp.period}
+                  </p>
+                  <h3 className="font-headline italic text-3xl md:text-4xl text-on-surface mb-1">
+                    {exp.position}
+                  </h3>
+                  <p className="font-body text-on-surface-variant text-lg">{exp.company}</p>
+                </div>
+
+                {/* Details */}
+                <div className="lg:col-span-6">
+                  <ul className="space-y-2 mb-6">
+                    {exp.highlights.map((highlight, i) => (
+                      <li key={i} className="font-body text-base text-on-surface-variant leading-relaxed">
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap gap-2">
+                    {exp.skills.map((skill) => (
+                      <Badge key={skill} variant="accent">{skill}</Badge>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </Reveal>
-
-        <animated.div style={modeSpring}>
-          {isBasic ? (
-            <ExperienceBasic experiences={experiences} />
-          ) : (
-            <ExperienceAdvanced experiences={experiences} />
-          )}
-        </animated.div>
-
-        <Reveal delay={1000}>
-          <div className="text-center mt-12">
-            <ActionButton
-              href="https://www.linkedin.com/in/franco-castro-villanueva-035905174/"
-              ariaLabel="Ver perfil de LinkedIn"
-              icon={
-                <svg fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-              }
-            >
-              $ open linkedin_profile
-            </ActionButton>
-          </div>
-        </Reveal>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

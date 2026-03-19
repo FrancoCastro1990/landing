@@ -1,104 +1,112 @@
-import { useSpring, animated } from '@react-spring/web';
+import { animated } from '@react-spring/web';
 import Reveal from '@shared/ui/Reveal';
-import SectionTitleWithShortcut from '@shared/ui/SectionTitleWithShortcut';
-import SubTitle from '@shared/ui/SubTitle';
-import Card from '@shared/ui/Card';
+import SectionTitle from '@shared/ui/SectionTitle';
 import Badge from '@shared/ui/Badge';
+import { useCountUp } from '@shared/hooks/useCountUp';
 
 const About: React.FC = () => {
+  const { ref: yearsRef, count: yearsCount } = useCountUp(6, 2000);
+  const { ref: companiesRef, count: companiesCount } = useCountUp(5, 2000);
+  const { ref: perfRef, count: perfCount } = useCountUp(78, 2000);
+
   const skills = [
-    { category: 'Core', items: ['Principios SOLID', 'Arquitectura Limpia', 'Patrones de Diseño', 'Mentorías', 'Revisión de Código'] },
-    { category: 'Frontend', items: ['React.js', 'TypeScript', 'Angular', 'HTML5', 'CSS', 'Diseño Responsivo'] },
-    { category: 'Backend', items: ['Node.js', 'NestJS', 'PostgreSQL', 'APIs REST', 'Pruebas Automatizadas'] },
-    { category: 'Herramientas', items: ['Git', 'Linux', 'Control de Versiones', 'Metodologías Ágiles', 'Pruebas Unitarias'] },
+    'SOLID',
+    'Clean Architecture',
+    'Design Patterns',
+    'React.js',
+    'Next.js',
+    'TypeScript',
+    'Angular',
+    'Node.js',
+    'NestJS',
+    'PostgreSQL',
+    'REST APIs',
+    'Unit Testing',
+    'E2E Playwright',
+    'Git',
+    'Linux',
+    'GitHub Copilot',
+    'Claude Code',
   ];
 
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="py-32 px-8 lg:px-24 bg-surface">
       <div className="max-w-6xl mx-auto">
-        <Reveal threshold={0.1}>
-          <div className="text-center mb-16">
-            <SectionTitleWithShortcut shortcut="A">Acerca de Mí</SectionTitleWithShortcut>
-            <div className="w-20 h-1 bg-lightTheme-green dark:bg-darkTheme-green mx-auto"></div>
+        <Reveal>
+          <div className="mb-24 flex justify-between items-baseline">
+            <p className="font-label uppercase tracking-[0.3rem] text-sm text-on-surface-variant">
+              Acerca de
+            </p>
+            <span className="font-headline italic text-2xl text-primary">01</span>
           </div>
         </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <Reveal direction="left" delay={200}>
-            <div className="space-y-6">
-              <Card variant="terminal" showHeader={true}>
-                <div className="mb-4">
-                  <span className="text-lightTheme-green dark:text-darkTheme-green">$</span>
-                  <span className="text-lightTheme-text dark:text-darkTheme-text ml-2 font-mono">whoami</span>
-                </div>
-                <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed mb-4 font-mono text-sm">
-                  Soy un desarrollador FullStack apasionado con 6+ años de experiencia, trabajando actualmente en Isapre Esencial. 
-                  Mi experiencia abarca el ciclo completo de desarrollo, con un fuerte enfoque en React, TypeScript e implementación 
-                  de principios de Arquitectura Limpia en aplicaciones del mundo real.
-                </p>
-                <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed font-mono text-sm">
-                  Me especializo en mentorar equipos y compartir conocimiento a través de charlas internas sobre testing, hooks personalizados, 
-                  principios SOLID y mejores prácticas de React. Mi experiencia incluye optimización de rendimiento (reduciendo 
-                  tiempos de carga de 9s a 2s), refactorización de código legacy y construcción de soluciones empresariales escalables.
-                </p>
-              </Card>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <Reveal delay={100} className="lg:col-span-7">
+            <SectionTitle className="mb-12">
+              Construyo con
+              <br />
+              <span className="text-primary">precision</span>
+              <br />
+              y arquitectura.
+            </SectionTitle>
 
-              <Card variant="terminal" showHeader={true}>
-                <div className="mb-3">
-                  <span className="text-lightTheme-green dark:text-darkTheme-green">$</span>
-                  <span className="text-lightTheme-text dark:text-darkTheme-text ml-2 font-mono">cat philosophy.txt</span>
-                </div>
-                <p className="text-lightTheme-text dark:text-darkTheme-text leading-relaxed font-mono text-sm">
-                  "El código limpio y la arquitectura sólida no son solo requisitos técnicos—son la base 
-                  para software mantenible que escala con las necesidades del negocio y permite el crecimiento del equipo."
-                </p>
-              </Card>
+            <div className="space-y-6 max-w-lg">
+              <p className="font-body text-lg text-on-surface-variant leading-relaxed">
+                Desarrollador Full Stack con mas de 6 anos de experiencia,
+                actualmente en Isapre Esencial. Mi enfoque abarca React,
+                TypeScript y Node.js, implementando principios de Arquitectura
+                Limpia en aplicaciones del mundo real.
+              </p>
+              <p className="font-body text-lg text-on-surface-variant leading-relaxed">
+                Especializado en mentorar equipos a traves de charlas internas
+                sobre testing, principios SOLID y mejores practicas. Experiencia
+                en optimizacion de rendimiento, refactorizacion de legacy y
+                automatizacion con herramientas de IA.
+              </p>
             </div>
           </Reveal>
 
-          <Reveal direction="right" delay={400}>
-            <div className="space-y-6">
-              <div>
-                <Card variant="terminal" showHeader={true}>
-                  <div className="mb-4">
-                    <span className="text-lightTheme-green dark:text-darkTheme-green">$</span>
-                    <span className="text-lightTheme-text dark:text-darkTheme-text ml-2 font-mono">ls skills/</span>
-                  </div>
-                  <div className="space-y-4">
-                    {skills.map((skillGroup, index) => (
-                      <div key={skillGroup.category}>
-                        <h4 className="text-lightTheme-green dark:text-darkTheme-green font-mono text-sm mb-2">
-                          {skillGroup.category.toLowerCase()}:
-                        </h4>
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          {skillGroup.items.map((skill, skillIndex) => (
-                            <Badge
-                              key={skill}
-                              size="sm"
-                              className="rounded-full"
-                              style={{
-                                animationDelay: `${(index * skillGroup.items.length + skillIndex) * 100}ms`
-                              }}
-                            >
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
+          <Reveal delay={300} className="lg:col-span-5">
+            <div className="space-y-12">
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-8">
+                <div ref={yearsRef}>
+                  <animated.span className="block font-headline italic text-6xl text-primary">
+                    {yearsCount.to((n) => `${Math.floor(n)}+`)}
+                  </animated.span>
+                  <span className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-2 block">
+                    Anos exp.
+                  </span>
+                </div>
+                <div ref={companiesRef}>
+                  <animated.span className="block font-headline italic text-6xl text-on-surface">
+                    {companiesCount.to((n) => Math.floor(n).toString())}
+                  </animated.span>
+                  <span className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-2 block">
+                    Empresas
+                  </span>
+                </div>
+                <div ref={perfRef} className="col-span-2">
+                  <animated.span className="block font-headline italic text-6xl text-primary">
+                    {perfCount.to((n) => `${Math.floor(n)}%`)}
+                  </animated.span>
+                  <span className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-2 block">
+                    Mejora rendimiento (9s a 2s)
+                  </span>
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <Card variant="terminal" className="text-center">
-                  <div className="text-2xl font-bold text-lightTheme-green dark:text-darkTheme-green font-mono">6+</div>
-                  <div className="text-sm text-lightTheme-yellow dark:text-darkTheme-yellow font-mono">Años de Experiencia</div>
-                </Card>
-                <Card variant="terminal" className="text-center">
-                  <div className="text-2xl font-bold text-lightTheme-green dark:text-darkTheme-green font-mono">5</div>
-                  <div className="text-sm text-lightTheme-yellow dark:text-darkTheme-yellow font-mono">Empresas</div>
-                </Card>
+              {/* Skills */}
+              <div>
+                <p className="font-label uppercase tracking-[0.3rem] text-[10px] text-primary mb-6">
+                  Stack Tecnologico
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <Badge key={skill}>{skill}</Badge>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>

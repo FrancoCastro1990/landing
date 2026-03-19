@@ -1,6 +1,4 @@
-import SubTitle from '@shared/ui/SubTitle';
 import Badge from '@shared/ui/Badge';
-import Button from '@shared/ui/Button';
 
 interface ProjectCardProps {
   title: string;
@@ -8,8 +6,7 @@ interface ProjectCardProps {
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
-  imageUrl?: string;
-  delay?: number;
+  reverse?: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -18,78 +15,48 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   technologies,
   githubUrl,
   liveUrl,
-  imageUrl,
-  delay = 0,
+  reverse = false,
 }) => {
   return (
-    <div
-      className="relative overflow-hidden rounded-lg bg-lightTheme-bg dark:bg-darkTheme-bg border border-lightTheme-text/20 dark:border-darkTheme-text/20 shadow-lg h-full flex flex-col"
-    >
-      {/* Terminal Header */}
-      <div className="flex items-center gap-2 px-4 py-3 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 border-b border-lightTheme-text/10 dark:border-darkTheme-text/10 flex-shrink-0">
-        <div className="flex gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-lightTheme-red dark:bg-darkTheme-red"></div>
-          <div className="w-3 h-3 rounded-full bg-lightTheme-yellow dark:bg-darkTheme-yellow"></div>
-          <div className="w-3 h-3 rounded-full bg-lightTheme-green dark:bg-darkTheme-green"></div>
-        </div>
-        <div className="ml-2 text-xs font-mono text-lightTheme-text/60 dark:text-darkTheme-text/60">
-          project-{title.toLowerCase().replace(/\s+/g, '-')}
-        </div>
-      </div>
-      
-      <div className="p-6 flex-1 flex flex-col font-mono">
-        {/* Project Image/Icon */}
-        <div className="mb-4 h-32 bg-lightTheme-text/5 dark:bg-darkTheme-text/5 rounded border border-lightTheme-text/10 dark:border-darkTheme-text/10 flex items-center justify-center flex-shrink-0">
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={title}
-              className="w-full h-full object-cover rounded"
-            />
-          ) : (
-            <div className="text-lightTheme-green dark:text-darkTheme-green text-4xl">
-              {'</>'}
-            </div>
-          )}
-        </div>
-
-        {/* Project Title */}
-        <div className="mb-3 flex-shrink-0">
-          <span className="text-lightTheme-green dark:text-darkTheme-green">$ </span>
-          <span className="text-lightTheme-text dark:text-darkTheme-text font-bold">{title}</span>
-        </div>
-
-        {/* Project Description */}
-        <div className="text-lightTheme-text dark:text-darkTheme-text text-sm leading-relaxed mb-4 flex-grow">
-          <span className="text-lightTheme-blue dark:text-darkTheme-blue"># </span>
+    <div className="group relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className={`lg:col-span-4 ${reverse ? 'lg:order-1' : 'lg:order-2'} pt-4`}>
+        <p className="font-label uppercase tracking-widest text-[10px] text-primary mb-2">
+          Proyecto
+        </p>
+        <h3 className="font-headline italic text-4xl md:text-5xl text-on-surface mb-6">
+          {title}
+        </h3>
+        <p className="font-body text-on-surface-variant leading-relaxed mb-8">
           {description}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mb-8">
+          {technologies.map((tech) => (
+            <Badge key={tech}>{tech}</Badge>
+          ))}
         </div>
 
-        {/* Technologies */}
-        <div className="mb-4 flex-shrink-0">
-          <div className="flex flex-wrap gap-2">
-            {technologies.map((tech, index) => (
-              <Badge key={tech} size="sm">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        {/* Project Links */}
-        <div className="flex gap-3 mt-auto flex-shrink-0">
+        <div className="flex items-center gap-8">
           {githubUrl && (
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-lightTheme-green/10 dark:bg-darkTheme-green/10 text-lightTheme-green dark:text-darkTheme-green text-sm px-3 py-2 rounded border border-lightTheme-green/30 dark:border-darkTheme-green/30"
-              aria-label={`View ${title} source code`}
+              className="group/link inline-flex items-center gap-4"
+              aria-label={`Ver codigo de ${title}`}
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              <span className="font-label uppercase tracking-widest text-xs border-b border-primary/20 group-hover/link:border-primary pb-1 transition-colors text-on-surface-variant group-hover/link:text-on-surface">
+                GitHub
+              </span>
+              <svg
+                className="w-5 h-5 text-primary group-hover/link:translate-x-2 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-              Code
             </a>
           )}
           {liveUrl && (
@@ -97,15 +64,31 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-lightTheme-green text-lightTheme-bg dark:bg-darkTheme-green dark:text-darkTheme-bg text-sm px-3 py-2 rounded font-semibold"
-              aria-label={`View ${title} live demo`}
+              className="group/link inline-flex items-center gap-4"
+              aria-label={`Ver demo de ${title}`}
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+              <span className="font-label uppercase tracking-widest text-xs border-b border-primary/20 group-hover/link:border-primary pb-1 transition-colors text-primary">
+                Live
+              </span>
+              <svg
+                className="w-5 h-5 text-primary group-hover/link:translate-x-2 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-              Live
             </a>
           )}
+        </div>
+      </div>
+
+      <div className={`lg:col-span-8 ${reverse ? 'lg:order-2' : 'lg:order-1'} overflow-hidden bg-surface-low`}>
+        <div className="w-full aspect-video flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-700">
+          <span className="font-headline italic text-8xl text-outline-variant/20 select-none">
+            {title.charAt(0)}
+          </span>
         </div>
       </div>
     </div>

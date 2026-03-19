@@ -2,8 +2,6 @@ import { useSpring, animated } from '@react-spring/web';
 import { useHeaderVisibility } from '../hooks/useHeaderVisibility';
 import { useMobileMenu } from '../hooks/useMobileMenu';
 import { useNavigation } from '../hooks/useNavigation';
-import Logo from '@shared/ui/Logo';
-import Link from '@shared/ui/Link';
 
 const Header: React.FC = () => {
   const isScrolled = useHeaderVisibility(50);
@@ -11,7 +9,7 @@ const Header: React.FC = () => {
   const { scrollToSection, scrollToTop } = useNavigation();
 
   const headerSpring = useSpring({
-    backdropFilter: isScrolled ? 'blur(10px)' : 'blur(0px)',
+    backdropFilter: isScrolled ? 'blur(20px)' : 'blur(0px)',
     opacity: isScrolled ? 1 : 0,
     transform: isScrolled ? 'translateY(0px)' : 'translateY(-100%)',
     config: { tension: 300, friction: 30 },
@@ -34,119 +32,97 @@ const Header: React.FC = () => {
   };
 
   const navigationItems = [
-    { label: 'Inicio', action: handleScrollToTop, shortcut: 'I' },
-    { label: 'Acerca de', action: () => handleScrollToSection('about'), shortcut: 'A' },
-    { label: 'Experiencia', action: () => handleScrollToSection('experience'), shortcut: 'E' },
-    { label: 'Proyectos', action: () => handleScrollToSection('projects'), shortcut: 'P' },
-    { label: 'Contacto', action: () => handleScrollToSection('contact'), shortcut: 'C' },
+    { label: 'ACERCA', action: () => handleScrollToSection('about') },
+    { label: 'EXPERIENCIA', action: () => handleScrollToSection('experience') },
+    { label: 'PROYECTOS', action: () => handleScrollToSection('projects') },
+    { label: 'CONTACTO', action: () => handleScrollToSection('contact') },
   ];
 
-  const renderLabelWithShortcut = (label: string, shortcut: string) => {
-    const index = label.toLowerCase().indexOf(shortcut.toLowerCase());
-    if (index === -1) return label;
-    
-    return (
-      <>
-        {label.slice(0, index)}
-        <span className="relative">
-          {label.slice(index, index + 1)}
-          <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-lightTheme-green dark:bg-darkTheme-green"></span>
-        </span>
-        {label.slice(index + 1)}
-      </>
-    );
-  };
-
   return (
-    <animated.header 
+    <animated.header
       style={headerSpring}
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-lightTheme-bg/95 dark:bg-darkTheme-bg/95 border-lightTheme-green/20 dark:border-darkTheme-green/20' 
-          : 'bg-transparent border-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50"
     >
-      <div className="max-w-6xl mx-auto px-4 py-4">
-        <nav className="flex items-center justify-between">
+      <div className="bg-surface-low/80 backdrop-blur-xl">
+        <div className="flex justify-between items-center px-8 py-6 max-w-full">
           {/* Logo */}
-          <Logo clickable onLogoClick={handleScrollToTop} />
+          <button
+            onClick={handleScrollToTop}
+            className="font-label font-black uppercase tracking-[0.2rem] text-primary text-xl focus:outline-none"
+            aria-label="Ir al inicio"
+          >
+            FRANCO_CASTRO
+          </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex gap-12 items-center">
             {navigationItems.map((item) => (
-              <Link
+              <button
                 key={item.label}
                 onClick={item.action}
-                variant="ghost"
-                className="font-mono text-sm px-3 py-2 relative group"
+                className="text-white/60 hover:text-white transition-colors duration-300 font-label uppercase tracking-[0.1rem] text-[12px]"
                 aria-label={`Navegar a ${item.label}`}
               >
-                <span className="opacity-0 group-hover:opacity-100 text-lightTheme-green dark:text-darkTheme-green transition-opacity duration-200 absolute left-1">
-                  $
-                </span>
-                <span className="group-hover:translate-x-2 transition-transform duration-200 inline-block">
-                  {renderLabelWithShortcut(item.label, item.shortcut)}
-                </span>
-              </Link>
+                {item.label}
+              </button>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-lightTheme-green dark:text-darkTheme-green hover:text-lightTheme-blue dark:hover:text-darkTheme-blue transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg rounded p-2 font-mono"
-            aria-label="Alternar menú móvil"
+            className="md:hidden text-primary transition-transform active:scale-90 focus:outline-none"
+            aria-label="Alternar menu movil"
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
-              <span className="text-sm">✕</span>
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             ) : (
-              <span className="text-sm">☰</span>
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             )}
           </button>
-        </nav>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
-      <animated.div 
+      <animated.div
         style={mobileMenuSpring}
-        className="md:hidden fixed z-50 top-0 right-0 bottom-0 w-64 shadow-2xl"
+        className="md:hidden fixed z-50 top-0 right-0 bottom-0 w-72 shadow-2xl"
       >
-        {/* Fondo sólido negro con blur */}
-        <div className="absolute inset-0 bg-lightTheme-bg dark:bg-darkTheme-bg backdrop-blur-xl"></div>
-        
-        {/* Contenido del menú */}
-        <div className="relative z-10 flex flex-col h-full bg-lightTheme-bg dark:bg-darkTheme-bg">
-          {/* Header del menú móvil con estilo terminal */}
-          <div className="flex items-center justify-between p-4 bg-lightTheme-bg dark:bg-darkTheme-bg">
-            <Logo />
+        <div className="absolute inset-0 bg-surface-lowest backdrop-blur-xl" />
+
+        <div className="relative z-10 flex flex-col h-full bg-surface-lowest">
+          <div className="flex items-center justify-between p-6 border-b border-white/5">
+            <span className="font-label font-black uppercase tracking-[0.2rem] text-primary text-lg">
+              FRANCO_CASTRO
+            </span>
             <button
               onClick={closeMenu}
-              className="text-lightTheme-green dark:text-darkTheme-green hover:text-lightTheme-blue dark:hover:text-darkTheme-blue transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg p-1 font-mono"
-              aria-label="Cerrar menú móvil"
+              className="text-primary transition-colors duration-300 focus:outline-none p-1"
+              aria-label="Cerrar menu movil"
             >
-              ✕
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
           </div>
-          
-          <div className="flex-1 flex flex-col">
-            <div className="flex-1 py-4 bg-lightTheme-bg dark:bg-darkTheme-bg">
-              <nav className="space-y-1 px-4">
-                {navigationItems.map((item, index) => (
-                  <button
-                    key={item.label}
-                    onClick={item.action}
-                    className="w-full text-left px-4 py-3 text-lightTheme-text dark:text-darkTheme-text hover:text-lightTheme-green dark:hover:text-darkTheme-green hover:bg-lightTheme-green/10 dark:hover:bg-darkTheme-green/10 transition-all duration-300 font-mono focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg rounded border-l border-transparent hover:border-lightTheme-green dark:hover:border-darkTheme-green text-sm"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <span className="text-lightTheme-green dark:text-darkTheme-green mr-2">$</span>
-                    <span className="lowercase">
-                      {renderLabelWithShortcut(item.label, item.shortcut)}
-                    </span>
-                  </button>
-                ))}
-              </nav>
-            </div>
+
+          <div className="flex-1 py-8">
+            <nav className="space-y-2 px-6">
+              {navigationItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={item.action}
+                  className="w-full text-left px-4 py-4 text-white/60 hover:text-primary transition-all duration-300 font-label uppercase tracking-[0.1rem] text-sm"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
       </animated.div>
@@ -154,7 +130,7 @@ const Header: React.FC = () => {
       {/* Mobile Menu Background Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-lightTheme-bg/90 dark:bg-darkTheme-bg/90 backdrop-blur-lg z-40"
+          className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
           onClick={closeMenu}
           aria-hidden="true"
         />

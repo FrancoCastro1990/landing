@@ -2,24 +2,21 @@ import { useEffect, useRef, useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 
 interface RevealProps {
-  children: any;
+  children: React.ReactNode;
   threshold?: number;
-  once?: boolean;
   delay?: number;
-  direction?: 'up' | 'down' | 'left' | 'right';
+  direction?: 'up' | 'down' | 'left' | 'right' | 'scale';
   className?: string;
 }
 
 const Reveal: React.FC<RevealProps> = ({
   children,
   threshold = 0.15,
-  once = true,
   delay = 0,
   direction = 'up',
   className = '',
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [hasBeenSeen, setHasBeenSeen] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,58 +25,52 @@ const Reveal: React.FC<RevealProps> = ({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && (!hasBeenSeen || !once)) {
+        if (entry.isIntersecting) {
           setIsVisible(true);
-          if (once) {
-            setHasBeenSeen(true);
-          }
-        } else if (!once) {
-          setIsVisible(false);
+          observer.unobserve(currentElement);
         }
       },
-      {
-        threshold,
-        rootMargin: '0px 0px -50px 0px',
-      }
+      { threshold, rootMargin: '0px 0px -50px 0px' }
     );
 
     observer.observe(currentElement);
 
     return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
+      if (currentElement) observer.unobserve(currentElement);
     };
-  }, [threshold, once, hasBeenSeen]);
+  }, [threshold]);
 
-  const getTransform = () => {
+  const getInitialTransform = () => {
     switch (direction) {
       case 'up':
-        return 'translateY(30px)';
+        return 'translateY(60px)';
       case 'down':
-        return 'translateY(-30px)';
+        return 'translateY(-60px)';
       case 'left':
-        return 'translateX(30px)';
+        return 'translateX(60px)';
       case 'right':
-        return 'translateX(-30px)';
+        return 'translateX(-60px)';
+      case 'scale':
+        return 'scale(0.95)';
       default:
-        return 'translateY(30px)';
+        return 'translateY(60px)';
     }
+  };
+
+  const getFinalTransform = () => {
+    if (direction === 'scale') return 'scale(1)';
+    return 'translate3d(0, 0, 0)';
   };
 
   const springProps = useSpring({
     opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translate3d(0, 0, 0)' : `translate3d(${getTransform().replace('translate', '').replace('(', '').replace(')', '')}, 0)`,
-    config: {
-      tension: 280,
-      friction: 60,
-    },
+    transform: isVisible ? getFinalTransform() : getInitialTransform(),
+    config: { tension: 120, friction: 14 },
     delay: isVisible ? delay : 0,
   });
 
-  // Check for reduced motion preference
-  const prefersReducedMotion = 
-    typeof window !== 'undefined' && 
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (prefersReducedMotion) {
@@ -98,11 +89,7 @@ const Reveal: React.FC<RevealProps> = ({
   }
 
   return (
-    <animated.div
-      ref={elementRef}
-      style={springProps}
-      className={className}
-    >
+    <animated.div ref={elementRef} style={springProps} className={className}>
       {children}
     </animated.div>
   );

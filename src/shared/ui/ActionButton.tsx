@@ -3,7 +3,6 @@ import React from 'react';
 interface ActionButtonProps {
   href: string;
   children: React.ReactNode;
-  icon?: React.ReactNode;
   ariaLabel?: string;
   target?: '_blank' | '_self';
   rel?: string;
@@ -13,7 +12,6 @@ interface ActionButtonProps {
 const ActionButton: React.FC<ActionButtonProps> = ({
   href,
   children,
-  icon,
   ariaLabel,
   target = '_blank',
   rel = 'noopener noreferrer',
@@ -24,11 +22,21 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       href={href}
       target={target}
       rel={target === '_blank' ? rel : undefined}
-      className={`inline-flex items-center gap-2 border border-lightTheme-green text-lightTheme-green dark:border-darkTheme-green dark:text-darkTheme-green bg-transparent font-semibold px-6 py-3 rounded focus:outline-none focus:ring-2 focus:ring-lightTheme-green dark:focus:ring-darkTheme-green focus:ring-offset-2 focus:ring-offset-lightTheme-bg dark:focus:ring-offset-darkTheme-bg font-mono transition-all duration-300 hover:bg-lightTheme-green hover:text-lightTheme-bg dark:hover:bg-darkTheme-green dark:hover:text-darkTheme-bg ${className}`}
+      className={`group inline-flex items-center gap-4 font-label uppercase tracking-widest text-xs transition-colors duration-300 ${className}`}
       aria-label={ariaLabel}
     >
-      {icon && <span className="w-5 h-5">{icon}</span>}
-      <span>{children}</span>
+      <span className="border-b border-primary/20 group-hover:border-primary pb-1 transition-colors">
+        {children}
+      </span>
+      <svg
+        className="w-5 h-5 text-primary group-hover:translate-x-2 transition-transform duration-300"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
     </a>
   );
 };
