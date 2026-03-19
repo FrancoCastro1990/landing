@@ -36,7 +36,7 @@ const ProjectsGrid: React.FC = () => {
               Proyectos Destacados
             </p>
             <span className="font-headline italic text-2xl text-primary">
-              01 — 0{projects.length}
+              03
             </span>
           </div>
         </Reveal>

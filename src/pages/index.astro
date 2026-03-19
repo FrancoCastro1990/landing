@@ -8,6 +8,7 @@ import { ProjectsGrid } from '@features/projects';
 import { Contact } from '@features/contact';
 import { Footer } from '@features/layout';
 import { ThemeCustomizer } from '@features/theme-customizer';
+import { NodeNetwork } from '@features/background';
 ---
 
 <!doctype html>
@@ -60,6 +61,8 @@ import { ThemeCustomizer } from '@features/theme-customizer';
     <link rel="canonical" href="https://fcastro.dev" />
   </head>
   <body class="bg-surface-lowest text-on-surface font-body">
+    <NodeNetwork client:load />
+
     <!-- Header -->
     <Header client:load />
 
