@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio site for Franco Castro (fcastro.dev). Built with Astro 4, React 18, TypeScript, and Tailwind CSS 3. Dark brutalist aesthetic inspired by "The Editorial Architect" — sharp 0px corners, italic serif headlines, yellow accent on pure black.
+Personal portfolio site for Franco Castro (fcastro.dev). Built with Astro 6, React 18, TypeScript, and Tailwind CSS 3 (via PostCSS). Dark brutalist aesthetic — sharp 0px corners, italic serif headlines, yellow accent on pure black. Deployed to Vercel as static output.
 
 ## Commands
 
@@ -12,6 +12,7 @@ Personal portfolio site for Franco Castro (fcastro.dev). Built with Astro 4, Rea
 - `npm run build` — production build (static output to `dist/`)
 - `npm run preview` — preview production build
 - No test runner is configured
+- Requires Node.js 22+ (managed via mise, see `mise.toml`)
 
 ## Architecture
 
@@ -20,17 +21,20 @@ Personal portfolio site for Franco Castro (fcastro.dev). Built with Astro 4, Rea
 ```
 src/
 ├── features/          # Feature modules, each with ui/, index.ts
-│   ├── hero/          # Hero section (italic serif headline, availability badge)
+│   ├── hero/          # Hero section (italic serif headline)
 │   ├── navigation/    # Header with glassmorphism nav, yellow brand
-│   ├── about/         # Bio, animated stats, skill chips with left-border accent
-│   ├── experience/    # Tonal-layered rows with year decorative
-│   ├── projects/      # Alternating 12-col grid, hover opacity transitions
-│   ├── contact/       # Centered italic serif CTA, expanding underline
-│   └── layout/        # Minimal footer
+│   │   └── hooks/     # useHeaderVisibility, useMobileMenu, useNavigation
+│   ├── about/         # Bio, animated stats (countUp), skill chips
+│   ├── experience/    # Tonal-layered timeline with year decorative
+│   ├── projects/      # Alternating grid with ProjectCard components
+│   ├── contact/       # Centered italic serif CTA, email + social links
+│   ├── layout/        # Footer
+│   ├── background/    # NodeNetwork — canvas particle animation
+│   └── theme-customizer/ # Runtime color customizer with presets + localStorage
 ├── shared/            # Cross-feature code
-│   ├── ui/            # Reusable components (Card, Button, Badge, Reveal, etc.)
+│   ├── ui/            # Reusable components (Card, Button, Badge, Reveal, SectionTitle, Link, ActionButton)
 │   ├── hooks/         # useScrollProgress, useScrollReveal, useCountUp
-│   └── styles/        # global.css (Tailwind directives, fonts)
+│   └── styles/        # global.css (Tailwind directives)
 └── pages/
     └── index.astro    # Single page — composes all features as Astro islands
 ```
@@ -38,25 +42,36 @@ src/
 **Key patterns:**
 - Each feature exports through a barrel file (`index.ts`). Import from `@features/hero`, not from deep paths.
 - Path aliases: `@features/*`, `@shared/*`, `@app/*` (configured in both `tsconfig.json` and `astro.config.mjs`).
-- React components hydrate as Astro islands: `client:load` for always-interactive (Header), `client:visible` for lazy (Hero, About, etc.), none for static (Footer).
+- React components hydrate as Astro islands: `client:load` for Header, `client:idle` for NodeNetwork and ThemeCustomizer, `client:visible` for content sections, none for Footer.
 - Animations use `@react-spring/web`.
+- Tailwind 3 runs via `postcss.config.cjs` (not `@astrojs/tailwind`, which is incompatible with Astro 6).
+- Fonts loaded via `<link>` in `index.astro` head (not CSS `@import`).
 
 ## Design System
 
 - **Dark mode only** — pure black `#000000` background, no light theme.
 - **0px border radius** everywhere (brutalist). Only `rounded-full` for pills/dots.
 - **No divider lines** — structural boundaries use background color shifts (tonal layering).
-- Color tokens in `tailwind.config.cjs`: `surface.*` (blacks/grays), `primary` (yellow `#FACC15`), `on-surface` (white), `on-surface-variant` (muted), `outline.*`.
+- Color tokens as CSS custom properties in `global.css`, mapped in `tailwind.config.cjs`: `surface.*` (blacks/grays), `primary` (yellow `#FACC15`), `on-surface` (white), `on-surface-variant` (muted), `outline.*`.
 - Typography: `font-headline` (Newsreader italic, serif) for titles, `font-body`/`font-label` (Manrope) for body and labels.
 - Labels: always uppercase with wide tracking (`tracking-widest` or `tracking-[0.3rem]`).
 - Use `text-on-surface` for primary text, `text-on-surface-variant` for secondary, `text-primary` for accent highlights.
 - Section dividers use `border-white/5` (ghost borders).
 - Glassmorphism for nav: `bg-surface-low/80 backdrop-blur-xl`.
-- Hover transitions: `cubic-bezier(0.16, 1, 0.3, 1)` feel — use `duration-300` to `duration-700`.
+- Hover transitions: use `duration-300` to `duration-700`.
+- Theme Customizer allows runtime color changes with 5 presets and custom pickers. Persisted to localStorage.
+
+## Accessibility
+
+- All interactive elements must have visible focus indicators (`focus:ring-2 focus:ring-primary`).
+- Menus and modals must close with Escape key.
+- Animated stats use `aria-live="polite"`.
+- Decorative elements use `aria-hidden="true"` or `role="presentation"`.
+- `prefers-reduced-motion` is respected in `global.css`.
 
 ## Code Style
 
-- Prettier: single quotes, trailing commas (es5), no semicolons omission, 100 char width, 2-space indent.
+- Prettier: single quotes, trailing commas (es5), semicolons, 100 char width, 2-space indent.
 - ESLint: TypeScript strict, React hooks rules. `react-in-jsx-scope` is off (React 17+ JSX transform).
 - Strict TypeScript: `noImplicitAny`, `strictNullChecks`, `noImplicitReturns` enabled.
 - Language: site content is in Spanish.
