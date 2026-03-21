@@ -25,8 +25,8 @@ export interface ContentOverrides {
   };
   contact?: {
     headline: HeadlinePart[];
-    email: string;
-    socialLinks: SocialLink[];
+    email?: string;
+    socialLinks?: SocialLink[];
   };
 }
 

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { SocialLink } from '@app';
-import { getMergedPortfolioData } from '@features/content-editor';
+import { getMergedPortfolioData, ImportModal } from '@features/content-editor';
 
 interface FooterProps {
   name: string;
@@ -10,6 +10,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ name, links }) => {
   const currentYear = new Date().getFullYear();
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle');
+  const [importOpen, setImportOpen] = useState(false);
 
   const handleExport = useCallback(async () => {
     try {
@@ -33,6 +34,13 @@ const Footer: React.FC<FooterProps> = ({ name, links }) => {
         </div>
 
         <div className="flex items-center gap-8">
+          <button
+            onClick={() => setImportOpen(true)}
+            className="font-label uppercase tracking-[0.1rem] text-[10px] text-on-surface/40 hover:text-on-surface transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label="Importar datos del portafolio"
+          >
+            IMPORTAR
+          </button>
           <button
             onClick={handleExport}
             className={`font-label uppercase tracking-[0.1rem] text-[10px] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary ${
@@ -64,6 +72,7 @@ const Footer: React.FC<FooterProps> = ({ name, links }) => {
           })}
         </div>
       </div>
+      <ImportModal isOpen={importOpen} onClose={() => setImportOpen(false)} />
     </footer>
   );
 };

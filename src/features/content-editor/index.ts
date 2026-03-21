@@ -5,3 +5,4 @@ export { default as EditorModal } from './ui/EditorModal';
 export { readSection, writeSection, resetSection, resetAll } from './lib/storage';
 export type { SectionKey, ContentOverrides } from './lib/storage';
 export { getMergedPortfolioData } from './lib/export';
+export { default as ImportModal } from './ui/ImportModal';

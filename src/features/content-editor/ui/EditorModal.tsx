@@ -5,13 +5,15 @@ import Button from '@shared/ui/Button';
 interface EditorModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: () => void;
-  onReset: () => void;
+  onSave?: () => void;
+  onReset?: () => void;
   title: string;
   children: ReactNode;
+  footer?: ReactNode;
+  ariaLabel?: string;
 }
 
-const EditorModal: React.FC<EditorModalProps> = ({ isOpen, onClose, onSave, onReset, title, children }) => {
+const EditorModal: React.FC<EditorModalProps> = ({ isOpen, onClose, onSave, onReset, title, children, footer, ariaLabel }) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -85,7 +87,7 @@ const EditorModal: React.FC<EditorModalProps> = ({ isOpen, onClose, onSave, onRe
               ref={panelRef}
               role="dialog"
               aria-modal="true"
-              aria-label={`Editar ${title}`}
+              aria-label={ariaLabel ?? `Editar ${title}`}
               className="bg-surface-container/90 backdrop-blur-2xl border border-on-surface/5 w-full max-w-lg pointer-events-auto flex flex-col max-h-[85vh]"
               onClick={(e) => e.stopPropagation()}
             >
@@ -109,17 +111,23 @@ const EditorModal: React.FC<EditorModalProps> = ({ isOpen, onClose, onSave, onRe
               <div className="px-6 py-5 overflow-y-auto flex-1">{children}</div>
 
               {/* Footer */}
-              <div className="px-6 py-4 border-t border-on-surface/5 flex items-center justify-between flex-shrink-0">
-                <button
-                  onClick={onReset}
-                  className="font-label uppercase tracking-[0.2rem] text-[10px] text-on-surface-variant hover:text-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  Restablecer
-                </button>
-                <Button variant="primary" size="sm" onClick={onSave}>
-                  Guardar
-                </Button>
-              </div>
+              {footer ? (
+                <div className="px-6 py-4 border-t border-on-surface/5 flex-shrink-0">
+                  {footer}
+                </div>
+              ) : (
+                <div className="px-6 py-4 border-t border-on-surface/5 flex items-center justify-between flex-shrink-0">
+                  <button
+                    onClick={onReset}
+                    className="font-label uppercase tracking-[0.2rem] text-[10px] text-on-surface-variant hover:text-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    Restablecer
+                  </button>
+                  <Button variant="primary" size="sm" onClick={onSave}>
+                    Guardar
+                  </Button>
+                </div>
+              )}
             </div>
           </animated.div>
         ) : null
