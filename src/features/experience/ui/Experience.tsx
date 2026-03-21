@@ -1,13 +1,18 @@
 import Reveal from '@shared/ui/Reveal';
 import Badge from '@shared/ui/Badge';
 import type { ExperienceItem } from '@app';
+import { useEditableData, EditableSection } from '@features/content-editor';
+import ExperienceEditorForm from '@features/content-editor/ui/sections/ExperienceEditorForm';
 
 interface ExperienceProps {
   items: ExperienceItem[];
 }
 
-const Experience: React.FC<ExperienceProps> = ({ items }) => {
+const Experience: React.FC<ExperienceProps> = (props) => {
+  const { items } = useEditableData('experience', props);
+
   return (
+    <EditableSection sectionKey="experience" sectionLabel="Experiencia" defaultData={props} currentData={{ items }} formComponent={ExperienceEditorForm}>
     <section id="experience" className="py-32 px-8 lg:px-24 bg-surface-lowest">
       <div className="max-w-6xl mx-auto">
         <Reveal>
@@ -63,6 +68,7 @@ const Experience: React.FC<ExperienceProps> = ({ items }) => {
         </div>
       </div>
     </section>
+    </EditableSection>
   );
 };
 

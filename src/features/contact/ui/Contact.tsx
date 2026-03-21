@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
 import Reveal from '@shared/ui/Reveal';
 import type { HeadlinePart, SocialLink } from '@app';
+import { useEditableData, EditableSection } from '@features/content-editor';
+import ContactEditorForm from '@features/content-editor/ui/sections/ContactEditorForm';
 
 interface ContactProps {
   headline: HeadlinePart[];
@@ -8,8 +10,11 @@ interface ContactProps {
   socialLinks: SocialLink[];
 }
 
-const Contact: React.FC<ContactProps> = ({ headline, email, socialLinks }) => {
+const Contact: React.FC<ContactProps> = (props) => {
+  const { headline, email, socialLinks } = useEditableData('contact', props);
+
   return (
+    <EditableSection sectionKey="contact" sectionLabel="Contacto" defaultData={props} currentData={{ headline, email, socialLinks }} formComponent={ContactEditorForm}>
     <section id="contact" className="py-40 px-8 lg:px-24 bg-surface-lowest">
       <div className="max-w-4xl mx-auto text-center">
         <Reveal>
@@ -67,6 +72,7 @@ const Contact: React.FC<ContactProps> = ({ headline, email, socialLinks }) => {
         </Reveal>
       </div>
     </section>
+    </EditableSection>
   );
 };
 

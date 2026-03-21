@@ -1,13 +1,18 @@
 import ProjectCard from './ProjectCard';
 import Reveal from '@shared/ui/Reveal';
 import type { ProjectItem } from '@app';
+import { useEditableData, EditableSection } from '@features/content-editor';
+import ProjectsEditorForm from '@features/content-editor/ui/sections/ProjectsEditorForm';
 
 interface ProjectsGridProps {
   items: ProjectItem[];
 }
 
-const ProjectsGrid: React.FC<ProjectsGridProps> = ({ items }) => {
+const ProjectsGrid: React.FC<ProjectsGridProps> = (props) => {
+  const { items } = useEditableData('projects', props);
+
   return (
+    <EditableSection sectionKey="projects" sectionLabel="Proyectos" defaultData={props} currentData={{ items }} formComponent={ProjectsEditorForm}>
     <section id="projects" className="py-32 px-8 lg:px-24 bg-surface">
       <div className="max-w-6xl mx-auto">
         <Reveal>
@@ -37,6 +42,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ items }) => {
         </div>
       </div>
     </section>
+    </EditableSection>
   );
 };
 

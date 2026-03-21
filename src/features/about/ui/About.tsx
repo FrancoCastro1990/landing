@@ -5,6 +5,8 @@ import SectionTitle from '@shared/ui/SectionTitle';
 import Badge from '@shared/ui/Badge';
 import { useCountUp } from '@shared/hooks/useCountUp';
 import type { HeadlinePart, StatItem } from '@app';
+import { useEditableData, EditableSection } from '@features/content-editor';
+import AboutEditorForm from '@features/content-editor/ui/sections/AboutEditorForm';
 
 interface AboutProps {
   sectionTitle: HeadlinePart[];
@@ -30,8 +32,11 @@ const StatDisplay: React.FC<{ stat: StatItem }> = ({ stat }) => {
   );
 };
 
-const About: React.FC<AboutProps> = ({ sectionTitle, bio, stats, skills }) => {
+const About: React.FC<AboutProps> = (props) => {
+  const { sectionTitle, bio, stats, skills } = useEditableData('about', props);
+
   return (
+    <EditableSection sectionKey="about" sectionLabel="Acerca de" defaultData={props} currentData={{ sectionTitle, bio, stats, skills }} formComponent={AboutEditorForm}>
     <section id="about" className="py-32 px-8 lg:px-24 bg-surface">
       <div className="max-w-6xl mx-auto">
         <Reveal>
@@ -88,6 +93,7 @@ const About: React.FC<AboutProps> = ({ sectionTitle, bio, stats, skills }) => {
         </div>
       </div>
     </section>
+    </EditableSection>
   );
 };
 
