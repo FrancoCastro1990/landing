@@ -38,6 +38,10 @@ Screaming Architecture — el codigo esta organizado por feature de negocio, no 
 
 ```
 src/
+  app/
+    types.ts              Interfaces TypeScript para toda la data del portafolio
+    data.ts               Fuente unica de verdad — todos los datos personales y contenido
+    index.ts              Barrel: re-exporta data y tipos
   features/
     hero/                 Hero principal (titular serif, badge)
     navigation/           Header con glassmorphism, menu mobile
@@ -54,8 +58,10 @@ src/
     hooks/                useScrollProgress, useScrollReveal, useCountUp
     styles/               global.css (Tailwind directives, fonts)
   pages/
-    index.astro           Pagina unica, compone todas las features como islas Astro
+    index.astro           Pagina unica, importa datos y pasa props a todas las islas
 ```
+
+**Datos centralizados:** Todo el contenido personal (nombre, email, experiencia, proyectos, skills, URLs) vive en `src/app/data.ts`. Los componentes son pura logica de rendering — reciben datos via props. Para actualizar contenido, solo editar `data.ts`.
 
 Cada feature exporta a traves de un barrel file (`index.ts`). Los imports usan path aliases: `@features/*`, `@shared/*`, `@app/*`.
 

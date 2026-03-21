@@ -1,5 +1,6 @@
 ---
 import '@shared/styles/global.css';
+import { portfolioData } from '@app';
 import { Hero } from '@features/hero';
 import { Header } from '@features/navigation';
 import { About } from '@features/about';
@@ -9,30 +10,37 @@ import { Contact } from '@features/contact';
 import { Footer } from '@features/layout';
 import { ThemeCustomizer } from '@features/theme-customizer';
 import { NodeNetwork } from '@features/background';
+
+const { personal, hero, about, experience, projects, contact, navigation, seo } = portfolioData;
+
+const footerLinks = [
+  ...personal.socialLinks,
+  { label: 'Email', url: `mailto:${personal.email}` },
+];
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Franco Castro — Desarrollador Full Stack con 6+ anos de experiencia en React, TypeScript y Arquitectura Limpia." />
+    <meta name="description" content={seo.description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Franco Castro — Desarrollador Full Stack</title>
+    <title>{seo.title}</title>
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Franco Castro — Desarrollador Full Stack" />
-    <meta property="og:description" content="Desarrollador Full Stack con 6+ anos de experiencia. Especializado en React, TypeScript, Arquitectura Limpia y mentorias de equipo." />
+    <meta property="og:title" content={seo.ogTitle} />
+    <meta property="og:description" content={seo.ogDescription} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://fcastro.dev" />
-    <meta property="og:site_name" content="Franco Castro" />
-    <meta property="og:image" content="https://fcastro.dev/og-image.png" />
+    <meta property="og:url" content={personal.siteUrl} />
+    <meta property="og:site_name" content={personal.name} />
+    <meta property="og:image" content={seo.ogImage} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Franco Castro — Desarrollador Full Stack" />
-    <meta name="twitter:description" content="Desarrollador Full Stack con 6+ anos de experiencia en React, TypeScript y Arquitectura Limpia" />
-    <meta name="twitter:image" content="https://fcastro.dev/og-image.png" />
+    <meta name="twitter:title" content={seo.ogTitle} />
+    <meta name="twitter:description" content={seo.ogDescription} />
+    <meta name="twitter:image" content={seo.ogImage} />
 
     <!-- Fonts — loaded via link, not CSS @import, to avoid render blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -59,43 +67,38 @@ import { NodeNetwork } from '@features/background';
     </script>
 
     <!-- Additional SEO -->
-    <meta name="author" content="Franco Castro" />
+    <meta name="author" content={personal.name} />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://fcastro.dev" />
+    <link rel="canonical" href={personal.siteUrl} />
 
     <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Franco Castro",
-        "url": "https://fcastro.dev",
-        "jobTitle": "Desarrollador Full Stack",
-        "email": "franco.castro.villanueva.90@gmail.com",
-        "sameAs": [
-          "https://github.com/FrancoCastro1990",
-          "https://www.linkedin.com/in/franco-castro-villanueva-035905174/"
-        ]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: personal.name,
+      url: personal.siteUrl,
+      jobTitle: personal.title,
+      email: personal.email,
+      sameAs: personal.socialLinks.map((link) => link.url),
+    })} />
   </head>
   <body class="bg-surface-lowest text-on-surface font-body">
     <NodeNetwork client:idle />
 
     <!-- Header -->
-    <Header client:load />
+    <Header client:load brandName={personal.brandName} navItems={navigation.items} />
 
     <!-- Main Content -->
     <main>
-      <Hero client:visible />
-      <About client:visible />
-      <Experience client:visible />
-      <ProjectsGrid client:visible />
-      <Contact client:visible />
+      <Hero client:visible headline={hero.headline} label={hero.label} bio={hero.bio} />
+      <About client:visible sectionTitle={about.sectionTitle} bio={about.bio} stats={about.stats} skills={about.skills} />
+      <Experience client:visible items={experience.items} />
+      <ProjectsGrid client:visible items={projects.items} />
+      <Contact client:visible headline={contact.headline} email={personal.email} socialLinks={personal.socialLinks} />
     </main>
 
     <!-- Footer -->
-    <Footer />
+    <Footer name={personal.name} links={footerLinks} />
 
     <!-- Theme Customizer -->
     <ThemeCustomizer client:idle />

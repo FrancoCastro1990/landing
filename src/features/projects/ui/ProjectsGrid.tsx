@@ -1,32 +1,12 @@
 import ProjectCard from './ProjectCard';
 import Reveal from '@shared/ui/Reveal';
+import type { ProjectItem } from '@app';
 
-const ProjectsGrid: React.FC = () => {
-  const projects = [
-    {
-      title: 'alarm.sh',
-      description:
-        'Herramienta integral de gestion de alarmas para linea de comandos Linux. Alarmas instantaneas, recurrentes y temporizadores con notificaciones de escritorio y alertas de sonido.',
-      technologies: ['Bash', 'Linux', 'Shell', 'Cron'],
-      githubUrl: 'https://github.com/FrancoCastro1990/alarm.sh',
-    },
-    {
-      title: 'CLI-front.sh',
-      description:
-        'CLI para construir componentes React automaticamente. Genera archivos TSX, hooks, contextos y sus pruebas correspondientes.',
-      technologies: ['Node.js', 'CLI', 'React', 'TypeScript'],
-      githubUrl: 'https://github.com/FrancoCastro1990/CLI-front',
-    },
-    {
-      title: 'Portafolio',
-      description:
-        'Sitio web personal con Astro y React. Micro-animaciones, diseno responsivo y optimizaciones de rendimiento con Arquitectura Limpia.',
-      technologies: ['Astro', 'React', 'TypeScript', 'Tailwind'],
-      githubUrl: 'https://github.com/FrancoCastro1990/landing.git',
-      liveUrl: 'https://fcastro.dev',
-    },
-  ];
+interface ProjectsGridProps {
+  items: ProjectItem[];
+}
 
+const ProjectsGrid: React.FC<ProjectsGridProps> = ({ items }) => {
   return (
     <section id="projects" className="py-32 px-8 lg:px-24 bg-surface">
       <div className="max-w-6xl mx-auto">
@@ -42,7 +22,7 @@ const ProjectsGrid: React.FC = () => {
         </Reveal>
 
         <div className="grid grid-cols-1 gap-40">
-          {projects.map((project, index) => (
+          {items.map((project, index) => (
             <Reveal key={project.title} delay={index * 150}>
               <ProjectCard
                 title={project.title}

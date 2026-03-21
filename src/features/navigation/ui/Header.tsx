@@ -3,8 +3,14 @@ import { useSpring, animated } from '@react-spring/web';
 import { useHeaderVisibility } from '../hooks/useHeaderVisibility';
 import { useMobileMenu } from '../hooks/useMobileMenu';
 import { useNavigation } from '../hooks/useNavigation';
+import type { NavItem } from '@app';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  brandName: string;
+  navItems: NavItem[];
+}
+
+const Header: React.FC<HeaderProps> = ({ brandName, navItems }) => {
   const isScrolled = useHeaderVisibility(50);
   const { isOpen: isMobileMenuOpen, toggleMenu, closeMenu } = useMobileMenu();
   const { scrollToSection, scrollToTop } = useNavigation();
@@ -42,12 +48,10 @@ const Header: React.FC = () => {
     closeMenu();
   };
 
-  const navigationItems = [
-    { label: 'ACERCA', action: () => handleScrollToSection('about') },
-    { label: 'EXPERIENCIA', action: () => handleScrollToSection('experience') },
-    { label: 'PROYECTOS', action: () => handleScrollToSection('projects') },
-    { label: 'CONTACTO', action: () => handleScrollToSection('contact') },
-  ];
+  const navigationItems = navItems.map((item) => ({
+    label: item.label,
+    action: () => handleScrollToSection(item.sectionId),
+  }));
 
   return (
     <>
@@ -63,7 +67,7 @@ const Header: React.FC = () => {
               className="font-label font-black uppercase tracking-[0.2rem] text-primary text-xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-lowest"
               aria-label="Ir al inicio"
             >
-              FRANCO_CASTRO
+              {brandName}
             </button>
 
             {/* Desktop Navigation */}
@@ -120,7 +124,7 @@ const Header: React.FC = () => {
         <div className="relative z-10 flex flex-col h-full bg-surface-lowest">
           <div className="flex items-center justify-between p-6 border-b border-on-surface/5">
             <span className="font-label font-black uppercase tracking-[0.2rem] text-primary text-lg">
-              FRANCO_CASTRO
+              {brandName}
             </span>
             <button
               onClick={closeMenu}

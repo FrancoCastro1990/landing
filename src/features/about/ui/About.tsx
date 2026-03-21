@@ -1,34 +1,36 @@
+import { Fragment } from 'react';
 import { animated } from '@react-spring/web';
 import Reveal from '@shared/ui/Reveal';
 import SectionTitle from '@shared/ui/SectionTitle';
 import Badge from '@shared/ui/Badge';
 import { useCountUp } from '@shared/hooks/useCountUp';
+import type { HeadlinePart, StatItem } from '@app';
 
-const About: React.FC = () => {
-  const { ref: yearsRef, count: yearsCount } = useCountUp(6, 2000);
-  const { ref: companiesRef, count: companiesCount } = useCountUp(5, 2000);
-  const { ref: perfRef, count: perfCount } = useCountUp(78, 2000);
+interface AboutProps {
+  sectionTitle: HeadlinePart[];
+  bio: string[];
+  stats: StatItem[];
+  skills: string[];
+}
 
-  const skills = [
-    'SOLID',
-    'Clean Architecture',
-    'Design Patterns',
-    'React.js',
-    'Next.js',
-    'TypeScript',
-    'Angular',
-    'Node.js',
-    'NestJS',
-    'PostgreSQL',
-    'REST APIs',
-    'Unit Testing',
-    'E2E Playwright',
-    'Git',
-    'Linux',
-    'GitHub Copilot',
-    'Claude Code',
-  ];
+const StatDisplay: React.FC<{ stat: StatItem }> = ({ stat }) => {
+  const { ref, count } = useCountUp(stat.value, 2000);
 
+  return (
+    <div ref={ref} className={stat.colSpan === 2 ? 'col-span-2' : ''}>
+      <animated.span
+        className={`block font-headline italic text-6xl ${stat.accentValue ? 'text-primary' : 'text-on-surface'}`}
+      >
+        {count.to((n) => `${Math.floor(n)}${stat.suffix}`)}
+      </animated.span>
+      <span className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-2 block">
+        {stat.label}
+      </span>
+    </div>
+  );
+};
+
+const About: React.FC<AboutProps> = ({ sectionTitle, bio, stats, skills }) => {
   return (
     <section id="about" className="py-32 px-8 lg:px-24 bg-surface">
       <div className="max-w-6xl mx-auto">
@@ -44,26 +46,20 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <Reveal delay={100} className="lg:col-span-7">
             <SectionTitle className="mb-12">
-              Construyo con
-              <br />
-              <span className="text-primary">precision</span>
-              <br />
-              y arquitectura.
+              {sectionTitle.map((part, i) => (
+                <Fragment key={i}>
+                  {i > 0 && <br />}
+                  {part.accent ? <span className="text-primary">{part.text}</span> : part.text}
+                </Fragment>
+              ))}
             </SectionTitle>
 
             <div className="space-y-6 max-w-lg">
-              <p className="font-body text-lg text-on-surface-variant leading-relaxed">
-                Desarrollador Full Stack con mas de 6 anos de experiencia,
-                actualmente en Isapre Esencial. Mi enfoque abarca React,
-                TypeScript y Node.js, implementando principios de Arquitectura
-                Limpia en aplicaciones del mundo real.
-              </p>
-              <p className="font-body text-lg text-on-surface-variant leading-relaxed">
-                Especializado en mentorar equipos a traves de charlas internas
-                sobre testing, principios SOLID y mejores practicas. Experiencia
-                en optimizacion de rendimiento, refactorizacion de legacy y
-                automatizacion con herramientas de IA.
-              </p>
+              {bio.map((paragraph, i) => (
+                <p key={i} className="font-body text-lg text-on-surface-variant leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </Reveal>
 
@@ -71,30 +67,9 @@ const About: React.FC = () => {
             <div className="space-y-12">
               {/* Stats */}
               <div className="grid grid-cols-2 gap-8" aria-live="polite" aria-atomic="true">
-                <div ref={yearsRef}>
-                  <animated.span className="block font-headline italic text-6xl text-primary">
-                    {yearsCount.to((n) => `${Math.floor(n)}+`)}
-                  </animated.span>
-                  <span className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-2 block">
-                    Anos exp.
-                  </span>
-                </div>
-                <div ref={companiesRef}>
-                  <animated.span className="block font-headline italic text-6xl text-on-surface">
-                    {companiesCount.to((n) => Math.floor(n).toString())}
-                  </animated.span>
-                  <span className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-2 block">
-                    Empresas
-                  </span>
-                </div>
-                <div ref={perfRef} className="col-span-2">
-                  <animated.span className="block font-headline italic text-6xl text-primary">
-                    {perfCount.to((n) => `${Math.floor(n)}%`)}
-                  </animated.span>
-                  <span className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-2 block">
-                    Mejora rendimiento (9s a 2s)
-                  </span>
-                </div>
+                {stats.map((stat) => (
+                  <StatDisplay key={stat.label} stat={stat} />
+                ))}
               </div>
 
               {/* Skills */}

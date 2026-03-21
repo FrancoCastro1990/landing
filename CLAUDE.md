@@ -20,6 +20,10 @@ Personal portfolio site for Franco Castro (fcastro.dev). Built with Astro 6, Rea
 
 ```
 src/
+├── app/               # App-level data layer (above features and shared)
+│   ├── types.ts       # TypeScript interfaces for all portfolio data
+│   ├── data.ts        # Single source of truth — all personal/content data
+│   └── index.ts       # Barrel: re-exports data and types
 ├── features/          # Feature modules, each with ui/, index.ts
 │   ├── hero/          # Hero section (italic serif headline)
 │   ├── navigation/    # Header with glassmorphism nav, yellow brand
@@ -36,10 +40,12 @@ src/
 │   ├── hooks/         # useScrollProgress, useScrollReveal, useCountUp
 │   └── styles/        # global.css (Tailwind directives)
 └── pages/
-    └── index.astro    # Single page — composes all features as Astro islands
+    └── index.astro    # Single page — imports data, passes props to all islands
 ```
 
 **Key patterns:**
+- **Centralized data layer:** All personal/content data lives in `src/app/data.ts` (typed via `src/app/types.ts`). `index.astro` imports `portfolioData`, destructures it, and passes props to each island. Components are pure rendering — no hardcoded data. To update content (name, email, experience, projects, skills), edit only `src/app/data.ts`.
+- **Structured text with `HeadlinePart[]`:** Titles with accent-colored words are modeled as arrays of `{ text, accent? }`. Each component decides how to render accent (Hero uses `text-primary`, Contact uses underline + muted). Line breaks vs inline spacing is a component decision.
 - Each feature exports through a barrel file (`index.ts`). Import from `@features/hero`, not from deep paths.
 - Path aliases: `@features/*`, `@shared/*`, `@app/*` (configured in both `tsconfig.json` and `astro.config.mjs`).
 - React components hydrate as Astro islands: `client:load` for Header, `client:idle` for NodeNetwork and ThemeCustomizer, `client:visible` for content sections, none for Footer.
