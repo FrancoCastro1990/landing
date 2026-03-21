@@ -32,9 +32,10 @@ src/
 │   ├── experience/    # Tonal-layered timeline with year decorative
 │   ├── projects/      # Alternating grid with ProjectCard components
 │   ├── contact/       # Centered italic serif CTA, email + social links
-│   ├── layout/        # Footer
+│   ├── layout/        # Footer (with IMPORTAR/EXPORTAR buttons)
 │   ├── background/    # NodeNetwork — canvas particle animation
-│   └── theme-customizer/ # Runtime color customizer with presets + localStorage
+│   ├── theme-customizer/ # Runtime color customizer with presets + localStorage
+│   └── content-editor/  # Inline editing, import/export, Zod validation
 ├── shared/            # Cross-feature code
 │   ├── ui/            # Reusable components (Card, Button, Badge, Reveal, SectionTitle, Link, ActionButton)
 │   ├── hooks/         # useScrollProgress, useScrollReveal, useCountUp
@@ -45,10 +46,11 @@ src/
 
 **Key patterns:**
 - **Centralized data layer:** All personal/content data lives in `src/app/data.ts` (typed via `src/app/types.ts`). `index.astro` imports `portfolioData`, destructures it, and passes props to each island. Components are pure rendering — no hardcoded data. To update content (name, email, experience, projects, skills), edit only `src/app/data.ts`.
+- **Content editor with import/export:** Users can edit sections inline via `EditableSection` modals. Overrides are stored in localStorage (`portfolio-content` key) and merged with defaults via `useEditableData` hook. The footer has EXPORTAR (copies full merged `PortfolioData` as JSON to clipboard) and IMPORTAR (opens modal to paste or upload `.json`, validated with Zod schemas). Import supports both full `PortfolioData` and partial `ContentOverrides` formats, with merge strategy (only imported sections overwrite).
 - **Structured text with `HeadlinePart[]`:** Titles with accent-colored words are modeled as arrays of `{ text, accent? }`. Each component decides how to render accent (Hero uses `text-primary`, Contact uses underline + muted). Line breaks vs inline spacing is a component decision.
 - Each feature exports through a barrel file (`index.ts`). Import from `@features/hero`, not from deep paths.
 - Path aliases: `@features/*`, `@shared/*`, `@app/*` (configured in both `tsconfig.json` and `astro.config.mjs`).
-- React components hydrate as Astro islands: `client:load` for Header, `client:idle` for NodeNetwork and ThemeCustomizer, `client:visible` for content sections, none for Footer.
+- React components hydrate as Astro islands: `client:load` for Header, `client:idle` for NodeNetwork and ThemeCustomizer, `client:visible` for content sections and Footer.
 - Animations use `@react-spring/web`.
 - Tailwind 3 runs via `postcss.config.cjs` (not `@astrojs/tailwind`, which is incompatible with Astro 6).
 - Fonts loaded via `<link>` in `index.astro` head (not CSS `@import`).

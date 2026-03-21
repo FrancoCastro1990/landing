@@ -9,6 +9,7 @@ Portafolio personal en [fcastro.dev](https://fcastro.dev). Dark brutalist aesthe
 - **TypeScript** — Strict mode
 - **Tailwind CSS 3** — Utilidades via PostCSS
 - **React Spring** — Animaciones fluidas
+- **Zod** — Validacion de schemas para import/export
 
 ## Requisitos
 
@@ -50,9 +51,10 @@ src/
     experience/           Timeline laboral con tonal layering
     projects/             Grid de proyectos con cards
     contact/              CTA con email y links sociales
-    layout/               Footer
+    layout/               Footer (con botones IMPORTAR/EXPORTAR)
     background/           Animacion de red de nodos (canvas)
     theme-customizer/     Personalizador de colores con presets
+    content-editor/       Editor inline, import/export JSON, validacion Zod
   shared/
     ui/                   Componentes reutilizables (Card, Button, Badge, Reveal, SectionTitle)
     hooks/                useScrollProgress, useScrollReveal, useCountUp
@@ -63,6 +65,8 @@ src/
 
 **Datos centralizados:** Todo el contenido personal (nombre, email, experiencia, proyectos, skills, URLs) vive en `src/app/data.ts`. Los componentes son pura logica de rendering — reciben datos via props. Para actualizar contenido, solo editar `data.ts`.
 
+**Editor de contenido:** Cada seccion tiene un boton "Editar" que abre un modal para modificar contenido en runtime. Los cambios se guardan en localStorage y se aplican reactivamente. El footer incluye botones EXPORTAR (copia el JSON completo al portapapeles) e IMPORTAR (abre modal para pegar o subir un `.json` con validacion Zod). El import soporta tanto `PortfolioData` completo como `ContentOverrides` parciales.
+
 Cada feature exporta a traves de un barrel file (`index.ts`). Los imports usan path aliases: `@features/*`, `@shared/*`, `@app/*`.
 
 ## Islas Astro
@@ -72,8 +76,7 @@ Los componentes React se hidratan selectivamente:
 ```
 client:load     Header (siempre interactivo)
 client:idle     NodeNetwork, ThemeCustomizer (se hidratan cuando el browser esta idle)
-client:visible  Hero, About, Experience, Projects, Contact (lazy, al entrar en viewport)
-(ninguno)       Footer (estatico, sin JavaScript)
+client:visible  Hero, About, Experience, Projects, Contact, Footer (lazy, al entrar en viewport)
 ```
 
 ## Sistema de diseno
