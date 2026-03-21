@@ -37,7 +37,7 @@ const About: React.FC<AboutProps> = (props) => {
 
   return (
     <EditableSection sectionKey="about" sectionLabel="Acerca de" defaultData={props} currentData={{ sectionTitle, bio, stats, skills }} formComponent={AboutEditorForm}>
-    <section id="about" className="py-32 px-8 lg:px-24 bg-surface">
+    <section id="about" className="py-32 px-8 lg:px-24 bg-surface/80">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-24 flex justify-between items-baseline">

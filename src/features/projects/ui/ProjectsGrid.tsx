@@ -13,7 +13,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = (props) => {
 
   return (
     <EditableSection sectionKey="projects" sectionLabel="Proyectos" defaultData={props} currentData={{ items }} formComponent={ProjectsEditorForm}>
-    <section id="projects" className="py-32 px-8 lg:px-24 bg-surface">
+    <section id="projects" className="py-32 px-8 lg:px-24 bg-surface/80">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-24 flex justify-between items-baseline">

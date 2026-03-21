@@ -15,7 +15,7 @@ const Contact: React.FC<ContactProps> = (props) => {
 
   return (
     <EditableSection sectionKey="contact" sectionLabel="Contacto" defaultData={props} currentData={{ headline, email, socialLinks }} formComponent={ContactEditorForm}>
-    <section id="contact" className="py-40 px-8 lg:px-24 bg-surface-lowest">
+    <section id="contact" className="py-40 px-8 lg:px-24">
       <div className="max-w-4xl mx-auto text-center">
         <Reveal>
           <p className="font-label uppercase tracking-[0.4rem] text-xs text-primary mb-8">

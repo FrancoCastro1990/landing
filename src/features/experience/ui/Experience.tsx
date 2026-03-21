@@ -13,7 +13,7 @@ const Experience: React.FC<ExperienceProps> = (props) => {
 
   return (
     <EditableSection sectionKey="experience" sectionLabel="Experiencia" defaultData={props} currentData={{ items }} formComponent={ExperienceEditorForm}>
-    <section id="experience" className="py-32 px-8 lg:px-24 bg-surface-lowest">
+    <section id="experience" className="py-32 px-8 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-24 flex justify-between items-baseline">

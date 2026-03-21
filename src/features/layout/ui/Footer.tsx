@@ -27,7 +27,7 @@ const Footer: React.FC<FooterProps> = ({ name, links }) => {
     copyState === 'copied' ? 'COPIADO!' : copyState === 'error' ? 'ERROR' : 'EXPORTAR';
 
   return (
-    <footer className="w-full border-t border-on-surface/5 bg-surface">
+    <footer className="w-full border-t border-on-surface/5 bg-surface/80">
       <div className="flex flex-col md:flex-row justify-between items-center px-12 pt-16 pb-24 md:pb-16 gap-8">
         <div className="font-label uppercase tracking-[0.1rem] text-[10px] text-on-surface/40">
           &copy;{currentYear} {name.toUpperCase()}. TODOS LOS DERECHOS RESERVADOS.

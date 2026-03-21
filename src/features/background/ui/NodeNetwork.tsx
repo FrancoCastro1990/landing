@@ -23,9 +23,9 @@ interface Node {
 }
 
 function getNodeCount(width: number): number {
-  if (width >= 1024) return 40;
-  if (width >= 768) return 25;
-  return 15;
+  if (width >= 1024) return 48;
+  if (width >= 768) return 30;
+  return 18;
 }
 
 function randomInRange(min: number, max: number): number {
